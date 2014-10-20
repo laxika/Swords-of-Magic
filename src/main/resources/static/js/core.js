@@ -1,0 +1,1 @@
+var swordsApp = angular.module('swords', []);

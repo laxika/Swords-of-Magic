@@ -9,12 +9,33 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     }).state('admin/login', {
         url: '/',
         templateUrl: '/admin/login',
-        controller: function ($scope) {
+        controller: function ($scope, $http, $state) {
             $scope.data = {};
+
             $scope.submit = function () {
-                console.log($scope.data);
+                $scope.formDisabled = true;
+
+                $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+                $http.post('/login', $.param($scope.data)).
+                        success(function (data, status, headers, config) {
+                            if (data.success) {
+                                $state.go('admin/home');
+                                $scope.$parent.setShowError(false);
+                            } else {
+                                $scope.$parent.setErrorText(data.error);
+                                $scope.$parent.setShowError(true);
+                                $scope.formDisabled = false;
+                            }
+                        }).
+                        error(function (data, status, headers, config) {
+                            $scope.$parent.setErrorText("Error while logging in!");
+                            $scope.$parent.setShowError(true);
+                        });
             };
         }
+    }).state('admin/home', {
+        url: '/',
+        templateUrl: '/admin/home'
     });
 });
 

@@ -12,10 +12,29 @@
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+        <script src="//cdn.jsdelivr.net/angular.ui-router/0.2.11/angular-ui-router.js"></script>
         <script src="/js/core.js"></script>
     </head>
-    <body>
+    <body ng-controller="MainController">
         <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <div class="button-container">
+                        <button type="button" class="btn btn-default" data-ui-sref="home" data-ui-sref-active="active">Home</button>
+                        <button type="button" class="btn btn-default" data-ui-sref="admin/login" data-ui-sref-active="active">Admin panel</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" ng-show="error.show">
+                    <p class="bg-danger">{{error.text}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" data-ui-view="">
+                    
+                </div>
+            </div>
         </div>
     </body>
 </html>

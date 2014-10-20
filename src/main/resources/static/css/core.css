@@ -3,3 +3,15 @@
 .container {
     width: 1024px;
 }
+
+/** Header **/
+
+.button-container {
+    padding: 10px;
+}
+
+/** Error **/
+
+.bg-danger {
+    padding: 10px;
+}

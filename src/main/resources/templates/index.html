@@ -20,8 +20,7 @@
             <div class="row">
                 <div class="col-md-12 text-right">
                     <div class="button-container">
-                        <button type="button" class="btn btn-default" data-ui-sref="home" data-ui-sref-active="active">Home</button>
-                        <button type="button" class="btn btn-default" data-ui-sref="admin/login" data-ui-sref-active="active">Admin panel</button>
+                        <button type="button" class="btn btn-default" ng-repeat="button in buttons" data-ui-sref="{{button.sref}}" data-ui-sref-active="active">{{button.title}}</button>
                     </div>
                 </div>
             </div>

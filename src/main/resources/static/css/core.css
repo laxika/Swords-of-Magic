@@ -15,3 +15,9 @@
 .bg-danger {
     padding: 10px;
 }
+
+/** General **/
+
+.btn {
+    margin-left: 10px;
+}

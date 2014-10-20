@@ -21,6 +21,10 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                             if (data.success) {
                                 $state.go('admin/home');
                                 $scope.$parent.setShowError(false);
+                                $scope.$parent.setLoggedIn(true);
+                                $scope.$parent.removeButton('Login');
+                                $scope.$parent.addButton('Admin', 'admin/home');
+                                $scope.$parent.addButton('Load carddata', 'admin/carddata');
                             } else {
                                 $scope.$parent.setErrorText(data.error);
                                 $scope.$parent.setShowError(true);
@@ -36,6 +40,9 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     }).state('admin/home', {
         url: '/',
         templateUrl: '/admin/home'
+    }).state('admin/loadsets', {
+        url: '/',
+        templateUrl: '/admin/carddata'
     });
 });
 
@@ -44,6 +51,17 @@ swordsApp.controller('MainController', function ($scope) {
         show: false,
         text: ''
     };
+    $scope.loggedIn = false;
+    $scope.buttons = [
+        {
+            title: 'Home',
+            sref: 'home'
+        },
+        {
+            title: 'Login',
+            sref: 'admin/login'
+        }
+    ];
 
     $scope.setShowError = function (show) {
         $scope.error.show = show;
@@ -51,5 +69,22 @@ swordsApp.controller('MainController', function ($scope) {
 
     $scope.setErrorText = function (errorText) {
         $scope.error.text = errorText;
+    };
+
+    $scope.setLoggedIn = function (loggedIn) {
+        $scope.loggedIn = loggedIn;
+    };
+
+    $scope.removeButton = function (title) {
+        $scope.buttons = $scope.buttons.filter(function (el) {
+            return el.title !== title;
+        });
+    };
+
+    $scope.addButton = function (title, sref) {
+        $scope.buttons.push({
+            title: title,
+            sref: sref
+        });
     };
 });

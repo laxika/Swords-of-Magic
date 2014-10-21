@@ -11,7 +11,7 @@ public class Card {
     private String name;
     private String manacost;
     private int cmc;
-    private String color;
+    private String[] color;
     private String supertypes;
     private String types;
     private String subtypes;
@@ -58,11 +58,11 @@ public class Card {
         this.cmc = cmc;
     }
 
-    public String getColor() {
+    public String[] getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(String color[]) {
         this.color = color;
     }
 

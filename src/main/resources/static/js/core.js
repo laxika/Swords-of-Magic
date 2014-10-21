@@ -40,7 +40,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     }).state('admin/home', {
         url: '/',
         templateUrl: '/admin/home'
-    }).state('admin/loadsets', {
+    }).state('admin/carddata', {
         url: '/',
         templateUrl: '/admin/carddata'
     });

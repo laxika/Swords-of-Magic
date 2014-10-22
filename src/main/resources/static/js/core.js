@@ -16,7 +16,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 $scope.formDisabled = true;
 
                 $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-                $http.post('/login', $.param($scope.data)).
+                $http.post('/admin/login', $.param($scope.data)).
                         success(function (data, status, headers, config) {
                             if (data.success) {
                                 $state.go('admin/home');

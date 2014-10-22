@@ -40,11 +40,6 @@ public class AdminController {
     @Autowired
     private CardRepository cardRepository;
 
-    @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
-    public String login() {
-        return "admin/login";
-    }
-
     @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
     public String home() {
         return "admin/home";
@@ -122,8 +117,13 @@ public class AdminController {
         return "admin/home";
     }
 
+    @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+    public String login() {
+        return "admin/login";
+    }
+
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/admin/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public LoginResponse index(HttpSession session, @RequestParam("username") String username, @RequestParam("password") String password) {
         User login = userRepository.queryByNameAndPass(username, password);
 

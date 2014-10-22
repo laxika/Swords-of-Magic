@@ -107,7 +107,7 @@ public class AdminController {
                         card.setManacost(cardObj.getString("manaCost"));
                     }
 
-                    cardRepository.save(card);
+                    cardRepository.insert(card);
                 }
             }
         } catch (IOException | JSONException e) {

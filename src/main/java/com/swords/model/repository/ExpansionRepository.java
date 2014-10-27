@@ -18,6 +18,10 @@ public class ExpansionRepository {
         mongoTemplate.insert(expansion);
     }
     
+    public Expansion findById(String id) {
+        return mongoTemplate.findById(id, Expansion.class);
+    }
+    
     public List<Expansion> findAll() {
         return mongoTemplate.findAll(Expansion.class);
     }

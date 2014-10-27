@@ -60,7 +60,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
         templateUrl: '/admin/carddata'
     }).state('expansion/cardlist', {
         url: '/expansion/:expansionId',
-        template: 'Testing stuff',
+        templateUrl: '/expansion/specific',
         controller: function ($scope, $state) {
             console.log($state.params.expansionId);
         }

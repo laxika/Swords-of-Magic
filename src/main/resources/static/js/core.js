@@ -1,11 +1,26 @@
 var swordsApp = angular.module('swords', ['ui.router']);
 
+swordsApp.filter('capitalize', function () {
+    return function (input, all) {
+        return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }) : '';
+    };
+});
+
 swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider.state('home', {
         url: '/',
-        templateUrl: '/expansions'
+        templateUrl: '/expansion/template',
+        controller: function ($scope, $http) {
+            $scope.sets = {};
+
+            $http.get('/expansion/data').success(function (data, status, headers, config) {
+                $scope.sets = data;
+            });
+        }
     }).state('admin/login', {
         url: '/',
         templateUrl: '/admin/login',
@@ -43,6 +58,12 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     }).state('admin/carddata', {
         url: '/',
         templateUrl: '/admin/carddata'
+    }).state('expansion/cardlist', {
+        url: '/expansion/:expansionId',
+        template: 'Testing stuff',
+        controller: function ($scope, $state) {
+            console.log($state.params.expansionId);
+        }
     });
 });
 

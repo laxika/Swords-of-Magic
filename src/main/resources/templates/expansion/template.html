@@ -1,0 +1,54 @@
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default" ng-repeat="set in sets">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <img class="img-thumbnail expansion-set-icon" src="http://mtgimage.com/symbol/set/{{set.id}}/r.svg" alt="{{set.name}} Icon" />
+                <a data-toggle="collapse" data-parent="#accordion" href="#{{set.id}}">
+                    {{set.name}}
+                </a>
+                <span class="expansion-set-button-group">
+                    <button class="btn btn-default" data-ui-sref="expansion/cardlist({expansionId: set.id})"><span class="glyphicon glyphicon-chevron-up"></span> To the cards</button>
+                </span>
+            </h4>
+        </div>
+        <div id="{{set.id}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="img-responsive img-thumbnail expansion-set-tumbnail" src="http://mtgimage.com/symbol/set/{{set.id}}/r.svg"  alt="{{set.name}} Icon"/>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Expansion data</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>Release info will come here</p>
+                            </div>
+                            <table class="table" >
+                                <tr>
+                                    <td class="bold" style="width: 15%;">Name:</td><td>{{set.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">Release date:</td><td>{{set.releaseDate}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">Border:</td><td>{{set.border| capitalize}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">Type:</td><td>{{set.type| capitalize}}</td>
+                                </tr>
+                                <tr ng-if="set.block">
+                                    <td class="bold">Block:</td><td>{{set.block}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">Online only:</td><td>{{set.onlineOnly.toString() | capitalize}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

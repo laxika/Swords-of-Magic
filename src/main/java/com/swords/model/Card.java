@@ -12,9 +12,9 @@ public class Card {
     private String manacost;
     private int cmc;
     private String[] color;
-    private String supertypes;
-    private String types;
-    private String subtypes;
+    private String[] supertypes;
+    private String[] types;
+    private String[] subtypes;
     private String rarity;
     private String text;
     private String flavor;
@@ -23,7 +23,7 @@ public class Card {
     private String power;
     private String toughness;
     private String layout;
-    private int multiverseid;
+    private int multiverseId;
     private String imageName;
 
     public Card(String id) {
@@ -66,27 +66,27 @@ public class Card {
         this.color = color;
     }
 
-    public String getSupertypes() {
+    public String[] getSupertypes() {
         return supertypes;
     }
 
-    public void setSupertypes(String supertypes) {
+    public void setSupertypes(String[] supertypes) {
         this.supertypes = supertypes;
     }
 
-    public String getTypes() {
+    public String[] getTypes() {
         return types;
     }
 
-    public void setTypes(String types) {
+    public void setTypes(String[] types) {
         this.types = types;
     }
 
-    public String getSubtypes() {
+    public String[] getSubtypes() {
         return subtypes;
     }
 
-    public void setSubtypes(String subtypes) {
+    public void setSubtypes(String[] subtypes) {
         this.subtypes = subtypes;
     }
 
@@ -154,12 +154,12 @@ public class Card {
         this.layout = layout;
     }
 
-    public int getMultiverseid() {
-        return multiverseid;
+    public int getMultiverseId() {
+        return multiverseId;
     }
 
-    public void setMultiverseid(int multiverseid) {
-        this.multiverseid = multiverseid;
+    public void setMultiverseId(int multiverseid) {
+        this.multiverseId = multiverseid;
     }
 
     public String getImageName() {

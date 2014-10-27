@@ -7,7 +7,6 @@ import com.swords.model.repository.CardRepository;
 import com.swords.model.repository.ExpansionRepository;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 import org.json.JSONArray;
@@ -18,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,8 +33,13 @@ public class ExpansionLoader {
     private CardFactory cardFactory;
     @Autowired
     private ExpansionFactory expansionFactory;
+
+    private final Resource carddata;
+
     @Autowired
-    private ApplicationContext appContext;
+    public ExpansionLoader(ApplicationContext appContext) {
+        carddata = appContext.getResource("classpath:/data/carddata.json");
+    }
 
     public void reloadExpansionData() {
         logger.info("Started loading the cards!");
@@ -52,9 +57,7 @@ public class ExpansionLoader {
     }
 
     private JSONObject loadJsonData() throws MalformedURLException, IOException {
-        Reader in = new InputStreamReader(appContext.getResource("classpath:/data/carddata.json").getInputStream());
-
-        return new JSONObject(new JSONTokener(in));
+        return new JSONObject(new JSONTokener(new InputStreamReader(carddata.getInputStream())));
     }
 
     private void loadExpansion(JSONObject expansionData) {

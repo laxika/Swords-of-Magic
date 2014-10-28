@@ -1,3 +1,7 @@
+function toUpperCase(input) {
+    return input.substring(0, 1).toUpperCase() + input.substring(1);
+}
+
 var swordsApp = angular.module('swords', ['ui.router']);
 
 swordsApp.filter('capitalize', function () {
@@ -76,6 +80,55 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
             $http.get('/expansion/data/' + $state.params.expansionId).success(function (data, status, headers, config) {
                 $scope.expansion = data.expansion;
                 $scope.cards = data.cardlist;
+
+                //TODO: Move this normalisation to serverside. The server is 
+                //much faster than the shitty js and we can cache the data.
+                for (var i = 0; i < $scope.cards.length; i++) {
+                    var card = $scope.cards[i];
+                    var printinfo = [];
+
+                    printinfo.push({title: "Name", value: card.name});
+                    printinfo.push({title: "Manacost", value: card.manacost + " - " + card.cmc});
+                    if (card.color) {
+                        printinfo.push({title: "Color", value: card.color.join(', ')});
+                    } else {
+                        printinfo.push({title: "Color", value: 'Colorless'});
+                    }
+                    if (card.subtypes) {
+                        printinfo.push({title: "Type", value: card.types.join(', ') + " — " + card.subtypes.join(', ')});
+                    } else {
+                        printinfo.push({title: "Type", value: card.types.join(', ')});
+                    }
+                    printinfo.push({title: "Rarity", value: card.rarity});
+                    printinfo.push({title: "Artist", value: card.artist});
+                    if (card.number) {
+                        printinfo.push({title: "Expansion number", value: card.number});
+                    }
+                    if (card.power) {
+                        printinfo.push({title: "Power", value: card.power});
+                    }
+                    if (card.toughness) {
+                        printinfo.push({title: "Toughness", value: card.toughness});
+                    }
+                    if (card.layout) {
+                        printinfo.push({title: "Layout", value: toUpperCase(card.layout)});
+                    }
+
+                    var finalinfo = [];
+                    var counter = 0;
+                    for (var j = 0; j < printinfo.length; j += 2) {
+                        if (counter + 2 < printinfo.length) {
+                            finalinfo.push([printinfo[counter], printinfo[counter + 1]]);
+                            counter += 2;
+                        } else {
+                            if (printinfo.length % 2 === 0) {
+                                finalinfo.push([printinfo[printinfo.length - 1]]);
+                            }
+                        }
+                    }
+
+                    $scope.cards[i].printinfo = finalinfo;
+                }
             });
         }
     });

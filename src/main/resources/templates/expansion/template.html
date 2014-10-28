@@ -18,42 +18,13 @@
                                 <p>{{card.text}}</p>
                                 <p ng-if="card.flavor"><i>{{card.flavor}}</i></p>
                             </div>
-                            <table class="table" >
-                                <tr>
-                                    <td class="bold" style="width: 25%;">Name:</td><td>{{card.name}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="bold">Manacost:</td><td>{{card.manacost}} - ({{card.cmc}})</td>
-                                </tr>
-                                <tr ng-if="card.color">
-                                    <td class="bold">Color</td><td>{{card.color.join(', ')}}</td>
-                                </tr>
-                                <tr ng-if="!card.color">
-                                    <td class="bold">Color</td><td>Colorless</td>
-                                </tr>
-                                <tr ng-if="card.subtypes">
-                                    <td class="bold">Type:</td><td>{{card.supertypes.join(', ')}} {{card.types.join(' ')}} — {{card.subtypes.join(' ')}}</td>
-                                </tr>
-                                <tr ng-if="!card.subtypes">
-                                    <td class="bold">Type:</td><td>{{card.supertypes.join(', ')}} {{card.types.join(' ')}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="bold">Rarity:</td><td>{{card.rarity}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="bold">Artist:</td><td>{{card.artist}}</td>
-                                </tr>
-                                <tr ng-if="card.number">
-                                    <td class="bold">Expansion number:</td><td>{{card.number}}</td>
-                                </tr>
-                                <tr ng-if="card.power">
-                                    <td class="bold">Power:</td><td>{{card.power}}</td>
-                                </tr>
-                                <tr ng-if="card.toughness">
-                                    <td class="bold">Toughness:</td><td>{{card.toughness}}</td>
-                                </tr>
-                                <tr ng-if="card.layout">
-                                    <td class="bold">Layout</td><td>{{card.layout}}</td>
+                            <table class="table">
+                                <tr ng-repeat="info in card.printinfo">
+                                    <td class="bold" style="width:20%;">{{info[0].title}}:</td>
+                                    <td style="width:30%;">{{info[0].value}}</td>
+                                    <td class="bold" style="width:20%;" ng-if="info[1].title">{{info[1].title}}:</td>
+                                    <td style="width:30%;" ng-if="info[1].title">{{info[1].value}}</td>
+                                    <td ng-if="!info[1].title" colspan="2"></td>
                                 </tr>
                             </table>
                         </div>

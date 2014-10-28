@@ -25,6 +25,7 @@
     float:right;
     margin-top: -3px;
     margin-right: -10px;
+    padding-left: 10px;
 }
 
 .expansion-set-tumbnail {
@@ -47,10 +48,14 @@
 
 /** General **/
 
-.btn {
+#menu .btn {
     margin-left: 10px;
 }
 
 .cursor-link {
     cursor: pointer;
+}
+
+.cursor-default {
+    cursor: default;
 }

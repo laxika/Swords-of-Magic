@@ -17,7 +17,7 @@
     </head>
     <body ng-controller="MainController">
         <div class="container">
-            <div class="row">
+            <div id="menu" class="row">
                 <div class="col-md-12 text-right">
                     <div class="button-container">
                         <button type="button" class="btn btn-default" ng-repeat="button in buttons" data-ui-sref="{{button.sref}}" data-ui-sref-active="active">{{button.title}}</button>

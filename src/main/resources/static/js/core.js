@@ -15,10 +15,14 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
         url: '/',
         templateUrl: '/expansion/template',
         controller: function ($scope, $http) {
-            $scope.sets = {};
+            $scope.expansions = {};
+            $scope.openExpansion = function (expansionId) {
+                $('#expansion-accordion').find('.collapse.in').collapse('hide');
+                $('#expansion-accordion').find('#' + expansionId).collapse('show');
+            };
 
             $http.get('/expansion/data').success(function (data, status, headers, config) {
-                $scope.sets = data;
+                $scope.expansions = data;
             });
         }
     }).state('admin/login', {
@@ -65,8 +69,8 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
             $scope.cards = {};
             $scope.expansion = [];
             $scope.openCard = function (cardId) {
-                $('#accordion').find('.collapse.in').collapse('hide');
-                $('#accordion').find('#' + cardId).collapse('show');
+                $('#card-accordion').find('.collapse.in').collapse('hide');
+                $('#card-accordion').find('#' + cardId).collapse('show');
             };
 
             $http.get('/expansion/data/' + $state.params.expansionId).success(function (data, status, headers, config) {

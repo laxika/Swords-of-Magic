@@ -6,7 +6,58 @@
         <div id="{{card.multiverseId}}" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="row">
-                    {{card.text}}
+                    <div class="col-md-3">
+                        <img class="img-responsive" src="http://mtgimage.com/set/{{card.expansion}}/{{card.imageName}}.hq.jpg" alt="{{card.name}} Image" />
+                    </div>
+                    <div class="col-md-9">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title bold">General information</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{card.text}}</p>
+                                <p ng-if="card.flavor"><i>{{card.flavor}}</i></p>
+                            </div>
+                            <table class="table" >
+                                <tr>
+                                    <td class="bold" style="width: 25%;">Name:</td><td>{{card.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">Manacost:</td><td>{{card.manacost}} - ({{card.cmc}})</td>
+                                </tr>
+                                <tr ng-if="card.color">
+                                    <td class="bold">Color</td><td>{{card.color.join(', ')}}</td>
+                                </tr>
+                                <tr ng-if="!card.color">
+                                    <td class="bold">Color</td><td>Colorless</td>
+                                </tr>
+                                <tr ng-if="card.subtypes">
+                                    <td class="bold">Type:</td><td>{{card.supertypes.join(', ')}} {{card.types.join(' ')}} — {{card.subtypes.join(' ')}}</td>
+                                </tr>
+                                <tr ng-if="!card.subtypes">
+                                    <td class="bold">Type:</td><td>{{card.supertypes.join(', ')}} {{card.types.join(' ')}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">Rarity:</td><td>{{card.rarity}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">Artist:</td><td>{{card.artist}}</td>
+                                </tr>
+                                <tr ng-if="card.number">
+                                    <td class="bold">Expansion number:</td><td>{{card.number}}</td>
+                                </tr>
+                                <tr ng-if="card.power">
+                                    <td class="bold">Power:</td><td>{{card.power}}</td>
+                                </tr>
+                                <tr ng-if="card.toughness">
+                                    <td class="bold">Toughness:</td><td>{{card.toughness}}</td>
+                                </tr>
+                                <tr ng-if="card.layout">
+                                    <td class="bold">Layout</td><td>{{card.layout}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

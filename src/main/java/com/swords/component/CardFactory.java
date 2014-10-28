@@ -18,6 +18,7 @@ public class CardFactory {
         }
 
         card.setName(cardData.getString("name"));
+        card.setExpansion(setCode);
 
         if (cardData.has("colors")) {
             card.setColor(JSONUtils.jsonArrayToStringArray(cardData.getJSONArray("colors")));

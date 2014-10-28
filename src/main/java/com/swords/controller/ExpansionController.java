@@ -1,6 +1,9 @@
 package com.swords.controller;
 
+import com.swords.controller.response.ExpansionResponse;
+import com.swords.model.Card;
 import com.swords.model.Expansion;
+import com.swords.model.repository.CardRepository;
 import com.swords.model.repository.ExpansionRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ public class ExpansionController {
 
     @Autowired
     private ExpansionRepository expansionRepository;
+    @Autowired
+    private CardRepository cardRepository;
     
     @RequestMapping("/expansion/template")
     public String expansionIndexTemplate() {
@@ -34,7 +39,16 @@ public class ExpansionController {
     
     @ResponseBody
     @RequestMapping(value = "/expansion/data/{setname}", produces = "application/json; charset=utf-8")
-    public List<Expansion> expansionData(@PathVariable String setname) {
-        return expansionRepository.findAll();
+    public ExpansionResponse expansionData(@PathVariable String setname) {
+        //TODO: move this to some cache or something, at least cache the static objects etc...
+        Expansion expansion = expansionRepository.findById(setname);
+        
+        List<Card> cardlist = cardRepository.findByExpansionId(setname);
+        
+        ExpansionResponse response = new ExpansionResponse();
+        response.setExpansion(expansion);
+        response.setCardlist(cardlist);
+        
+        return response;
     }
 }

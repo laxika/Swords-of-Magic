@@ -9,7 +9,7 @@ swordsApp.filter('capitalize', function () {
 });
 
 swordsApp.config(function ($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.when('', '/index');
 
     $stateProvider.state('home', {
         url: '/',
@@ -61,8 +61,18 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     }).state('expansion/cardlist', {
         url: '/expansion/:expansionId',
         templateUrl: '/expansion/specific',
-        controller: function ($scope, $state) {
-            console.log($state.params.expansionId);
+        controller: function ($scope, $state, $http) {
+            $scope.cards = {};
+            $scope.expansion = [];
+            $scope.openCard = function (cardId) {
+                $('#accordion').find('.collapse.in').collapse('hide');
+                $('#accordion').find('#' + cardId).collapse('show');
+            };
+
+            $http.get('/expansion/data/' + $state.params.expansionId).success(function (data, status, headers, config) {
+                $scope.expansion = data.expansion;
+                $scope.cards = data.cardlist;
+            });
         }
     });
 });

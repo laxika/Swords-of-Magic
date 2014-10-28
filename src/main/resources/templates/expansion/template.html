@@ -1,1 +1,14 @@
-hyhy
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default" ng-repeat="card in cards">
+        <div class="panel-heading">
+            <h4 class="cursor-link panel-title" ng-click="openCard(card.multiverseId)">{{card.name}}</h4>
+        </div>
+        <div id="{{card.multiverseId}}" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    {{card.text}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

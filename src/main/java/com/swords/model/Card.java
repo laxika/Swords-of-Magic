@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Card {
 
     @Id
-    private String id;
+    private final String id;
     private String name;
     private String manacost;
     private int cmc;
@@ -25,6 +25,7 @@ public class Card {
     private String layout;
     private int multiverseId;
     private String imageName;
+    private String expansion;
 
     public Card(String id) {
         this.id = id;
@@ -168,5 +169,13 @@ public class Card {
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public String getExpansion() {
+        return expansion;
+    }
+
+    public void setExpansion(String expansion) {
+        this.expansion = expansion;
     }
 }

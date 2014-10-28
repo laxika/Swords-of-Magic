@@ -50,3 +50,7 @@
 .btn {
     margin-left: 10px;
 }
+
+.cursor-link {
+    cursor: pointer;
+}

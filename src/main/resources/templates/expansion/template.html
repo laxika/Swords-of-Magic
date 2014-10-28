@@ -15,15 +15,15 @@
                                 <h3 class="panel-title bold">General information</h3>
                             </div>
                             <div class="panel-body">
-                                <p>{{card.text}}</p>
+                                <p ng-bind-html="toTrusted(card.text)"></p>
                                 <p ng-if="card.flavor"><i>{{card.flavor}}</i></p>
                             </div>
                             <table class="table">
                                 <tr ng-repeat="info in card.printinfo">
-                                    <td class="bold" style="width:20%;">{{info[0].title}}:</td>
-                                    <td style="width:30%;">{{info[0].value}}</td>
-                                    <td class="bold" style="width:20%;" ng-if="info[1].title">{{info[1].title}}:</td>
-                                    <td style="width:30%;" ng-if="info[1].title">{{info[1].value}}</td>
+                                    <td class="bold" style="width:20%;" ng-bind-html="toTrusted(info[0].title + ':')"></td>
+                                    <td style="width:30%;" ng-bind-html="toTrusted(info[0].value)"></td>
+                                    <td class="bold" style="width:20%;" ng-if="info[1].title" ng-bind-html="toTrusted(info[1].title + ':')"></td>
+                                    <td style="width:30%;" ng-if="info[1].title" ng-bind-html="toTrusted(info[1].value)"></td>
                                     <td ng-if="!info[1].title" colspan="2"></td>
                                 </tr>
                             </table>

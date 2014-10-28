@@ -69,12 +69,17 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     }).state('expansion/cardlist', {
         url: '/expansion/:expansionId',
         templateUrl: '/expansion/specific',
-        controller: function ($scope, $state, $http) {
+        controller: function ($scope, $state, $http, $sce) {
             $scope.cards = {};
             $scope.expansion = [];
+            
             $scope.openCard = function (cardId) {
                 $('#card-accordion').find('.collapse.in').collapse('hide');
                 $('#card-accordion').find('#' + cardId).collapse('show');
+            };
+            
+            $scope.toTrusted = function (htmlCode) {
+                return $sce.trustAsHtml(htmlCode);
             };
 
             $http.get('/expansion/data/' + $state.params.expansionId).success(function (data, status, headers, config) {
@@ -85,10 +90,22 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 //much faster than the shitty js and we can cache the data.
                 for (var i = 0; i < $scope.cards.length; i++) {
                     var card = $scope.cards[i];
+                    
+                    if($scope.cards[i].text) {
+                        $scope.cards[i].text = $scope.cards[i].text.replace(/\{([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="G mana"/>');
+                        $scope.cards[i].text = $scope.cards[i].text.replace(/\{(\w+)\}/ig, '<img src="http://mtgimage.com/symbol/other/$1/16.gif" alt="G mana"/>');
+                    }
+                    
                     var printinfo = [];
 
                     printinfo.push({title: "Name", value: card.name});
-                    printinfo.push({title: "Manacost", value: card.manacost + " - " + card.cmc});
+
+                    if (card.color) {
+                        var manacostStr = card.manacost.replace(/\{(\w+)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="G mana"/>');
+
+                        printinfo.push({title: "Manacost", value: manacostStr + " - " + '<img src="http://mtgimage.com/symbol/mana/' + card.cmc + '/16.gif" alt="' + card.cmc + ' mana"/>'});
+                    }
+
                     if (card.color) {
                         printinfo.push({title: "Color", value: card.color.join(', ')});
                     } else {

@@ -1,13 +1,12 @@
 package com.swords.controller.response;
 
-import com.swords.model.Card;
 import com.swords.model.Expansion;
 import java.util.List;
 
 public class ExpansionResponse {
 
     private Expansion expansion;
-    private List<Card> cardlist;
+    private List<CardResponse> cardlist;
 
     public Expansion getExpansion() {
         return expansion;
@@ -17,11 +16,11 @@ public class ExpansionResponse {
         this.expansion = expansion;
     }
 
-    public List<Card> getCardlist() {
+    public List<CardResponse> getCardlist() {
         return cardlist;
     }
 
-    public void setCardlist(List<Card> cardlist) {
+    public void setCardlist(List<CardResponse> cardlist) {
         this.cardlist = cardlist;
     }
 }

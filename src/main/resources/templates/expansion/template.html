@@ -1,13 +1,13 @@
 <div class="panel-group" id="card-accordion">
     <div class="panel panel-default" ng-repeat="card in cards">
         <div class="panel-heading">
-            <h4 class="cursor-link panel-title" ng-click="openCard(card.multiverseId)">{{card.name}}</h4>
+            <h4 class="cursor-link panel-title" ng-click="openCard(card.data.multiverseId)">{{card.data.name}}</h4>
         </div>
-        <div id="{{card.multiverseId}}" class="panel-collapse collapse">
+        <div id="{{card.data.multiverseId}}" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-3">
-                        <img class="img-responsive" src="http://mtgimage.com/set/{{card.expansion}}/{{card.imageName}}.hq.jpg" alt="{{card.name}} Image" />
+                        <img class="img-responsive" src="http://mtgimage.com/set/{{card.data.expansion}}/{{card.data.imageName}}.hq.jpg" alt="{{card.data.name}} Image" />
                     </div>
                     <div class="col-md-9">
                         <div class="panel panel-default">
@@ -18,7 +18,7 @@
                                 xyz
                             </div>
                             <table class="table">
-                                <tr><td>Hellow</td><td>world</td></tr>
+                                <tr><td>Hello</td><td>world</td></tr>
                             </table>
                         </div>
                         <div class="panel panel-default">
@@ -26,8 +26,8 @@
                                 <h3 class="panel-title bold">General information</h3>
                             </div>
                             <div class="panel-body">
-                                <p ng-bind-html="toTrusted(card.text)"></p>
-                                <p ng-if="card.flavor"><i>{{card.flavor}}</i></p>
+                                <p ng-bind-html="toTrusted(card.data.text)"></p>
+                                <p ng-if="card.data.flavor"><i>{{card.data.flavor}}</i></p>
                             </div>
                             <table class="table">
                                 <tr ng-repeat="info in card.printinfo">

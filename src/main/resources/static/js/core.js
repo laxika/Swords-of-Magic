@@ -72,12 +72,12 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
         controller: function ($scope, $state, $http, $sce) {
             $scope.cards = {};
             $scope.expansion = [];
-            
+
             $scope.openCard = function (cardId) {
                 $('#card-accordion').find('.collapse.in').collapse('hide');
                 $('#card-accordion').find('#' + cardId).collapse('show');
             };
-            
+
             $scope.toTrusted = function (htmlCode) {
                 return $sce.trustAsHtml(htmlCode);
             };
@@ -86,50 +86,16 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 $scope.expansion = data.expansion;
                 $scope.cards = data.cardlist;
 
-                //TODO: Move this normalisation to serverside. The server is 
-                //much faster than the shitty js and we can cache the data.
+                //TODO: Do something to remove this! I don't know Angular enough 
+                //at the moment to do something better.
+                //---
+                //Hate doing comments because things not clean enogh but all this
+                //does is making an array with two elements to let angular proces
+                //it easily with ng-repeat and easily print a table with two columns.
                 for (var i = 0; i < $scope.cards.length; i++) {
-                    var card = $scope.cards[i];
-                    
-                    if($scope.cards[i].text) {
-                        $scope.cards[i].text = $scope.cards[i].text.replace(/\{([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="G mana"/>');
-                        $scope.cards[i].text = $scope.cards[i].text.replace(/\{(\w+)\}/ig, '<img src="http://mtgimage.com/symbol/other/$1/16.gif" alt="G mana"/>');
-                    }
-                    
-                    var printinfo = [];
-
-                    printinfo.push({title: "Name", value: card.name});
-
-                    if (card.color) {
-                        var manacostStr = card.manacost.replace(/\{(\w+)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="G mana"/>');
-
-                        printinfo.push({title: "Manacost", value: manacostStr + " - " + '<img src="http://mtgimage.com/symbol/mana/' + card.cmc + '/16.gif" alt="' + card.cmc + ' mana"/>'});
-                    }
-
-                    if (card.color) {
-                        printinfo.push({title: "Color", value: card.color.join(', ')});
-                    } else {
-                        printinfo.push({title: "Color", value: 'Colorless'});
-                    }
-                    if (card.subtypes) {
-                        printinfo.push({title: "Type", value: card.types.join(', ') + " — " + card.subtypes.join(', ')});
-                    } else {
-                        printinfo.push({title: "Type", value: card.types.join(', ')});
-                    }
-                    printinfo.push({title: "Rarity", value: card.rarity});
-                    printinfo.push({title: "Artist", value: card.artist});
-                    if (card.number) {
-                        printinfo.push({title: "Expansion number", value: card.number});
-                    }
-                    if (card.power) {
-                        printinfo.push({title: "Power", value: card.power});
-                    }
-                    if (card.toughness) {
-                        printinfo.push({title: "Toughness", value: card.toughness});
-                    }
-                    if (card.layout) {
-                        printinfo.push({title: "Layout", value: toUpperCase(card.layout)});
-                    }
+                    var printinfo = $.map($scope.cards[i].printinfo, function (value, index) {
+                        return [value];
+                    });
 
                     var finalinfo = [];
                     var counter = 0;

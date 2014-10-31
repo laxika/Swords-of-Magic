@@ -54,45 +54,8 @@ public class ExpansionController {
         //TODO: make a darn factory out of this, also try to cache them!
         for (Card card : cardlist) {
             CardResponse cardResponse = new CardResponse(card);
-
-            cardResponse.setPrintInformation("name", new CardPrintInformationResponse("Name", card.getName()));
-            cardResponse.setPrintInformation("rarity", new CardPrintInformationResponse("Rarity", card.getRarity()));
-            cardResponse.setPrintInformation("artist", new CardPrintInformationResponse("Artist", card.getArtist()));
             
-            if(card.getNumber() != null) {
-                cardResponse.setPrintInformation("number", new CardPrintInformationResponse("Expansion number", card.getNumber()));
-            }
-            
-            if(card.getPower() != null) {
-                cardResponse.setPrintInformation("power", new CardPrintInformationResponse("Power", card.getPower()));
-            }
-            
-            if(card.getToughness()!= null) {
-                cardResponse.setPrintInformation("toughness", new CardPrintInformationResponse("Toughness", card.getToughness()));
-            }
-            
-            if(card.getLayout()!= null) {
-                cardResponse.setPrintInformation("layout", new CardPrintInformationResponse("Layout", card.getLayout()));
-            }
-
-            //card.manacost.replace(/\{(\w+)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="G mana"/>');
-            if (card.getManacost() != null && !card.getManacost().isEmpty()) {
-                String finalManacost = card.getManacost() + " - <img src=\"http://mtgimage.com/symbol/mana/" + card.getCmc() + "/16.gif\" alt=\"" + card.getCmc() + " mana\"/>";
-
-                cardResponse.setPrintInformation("manacost", new CardPrintInformationResponse("Manacost", finalManacost));
-            }
-            
-            if(card.getColor() != null && card.getColor().length > 0) {
-                cardResponse.setPrintInformation("color", new CardPrintInformationResponse("Color", StringUtils.join(card.getColor(), ", ")));
-            } else {
-                cardResponse.setPrintInformation("color", new CardPrintInformationResponse("Color", "Colorless"));
-            }
-            
-            if(card.getSubtypes() != null && card.getSubtypes().length > 0) {
-                cardResponse.setPrintInformation("type", new CardPrintInformationResponse("Type", StringUtils.join(card.getTypes(), ", ") + " — " + StringUtils.join(card.getSubtypes(), ", ")));
-            } else {
-                cardResponse.setPrintInformation("type", new CardPrintInformationResponse("Type", StringUtils.join(card.getTypes(), ", ")));
-            }
+            //Here we can set the collection/pricing/ruling data lately.
 
             cardResponseHolder.add(cardResponse);
         }

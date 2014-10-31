@@ -78,40 +78,18 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 $('#card-accordion').find('#' + cardId).collapse('show');
             };
 
-            $scope.toTrusted = function (htmlCode) {
-                return $sce.trustAsHtml(htmlCode);
+            $scope.replaceSymbols = function (text) {
+                var newText = '';
+
+                newText = text.replace(/\{([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="$1 mana"/>');
+                newText = newText.replace(/\{(\w+)\}/ig, '<img src="http://mtgimage.com/symbol/other/$1/16.gif" alt="$1 symbol"/>');
+
+                return $sce.trustAsHtml(newText);
             };
 
             $http.get('/expansion/data/' + $state.params.expansionId).success(function (data, status, headers, config) {
                 $scope.expansion = data.expansion;
                 $scope.cards = data.cardlist;
-
-                //TODO: Do something to remove this! I don't know Angular enough 
-                //at the moment to do something better.
-                //---
-                //Hate doing comments because things not clean enogh but all this
-                //does is making an array with two elements to let angular proces
-                //it easily with ng-repeat and easily print a table with two columns.
-                for (var i = 0; i < $scope.cards.length; i++) {
-                    var printinfo = $.map($scope.cards[i].printinfo, function (value, index) {
-                        return [value];
-                    });
-
-                    var finalinfo = [];
-                    var counter = 0;
-                    for (var j = 0; j < printinfo.length; j += 2) {
-                        if (counter + 2 < printinfo.length) {
-                            finalinfo.push([printinfo[counter], printinfo[counter + 1]]);
-                            counter += 2;
-                        } else {
-                            if (printinfo.length % 2 === 0) {
-                                finalinfo.push([printinfo[printinfo.length - 1]]);
-                            }
-                        }
-                    }
-
-                    $scope.cards[i].printinfo = finalinfo;
-                }
             });
         }
     });

@@ -26,16 +26,47 @@
                                 <h3 class="panel-title bold">General information</h3>
                             </div>
                             <div class="panel-body">
-                                <p ng-bind-html="toTrusted(card.data.text)"></p>
+                                <p ng-bind-html="replaceSymbols(card.data.text)"></p>
                                 <p ng-if="card.data.flavor"><i>{{card.data.flavor}}</i></p>
                             </div>
-                            <table class="table">
-                                <tr ng-repeat="info in card.printinfo">
-                                    <td class="bold" style="width:20%;" ng-bind-html="toTrusted(info[0].title + ':')"></td>
-                                    <td style="width:30%;" ng-bind-html="toTrusted(info[0].value)"></td>
-                                    <td class="bold" style="width:20%;" ng-if="info[1].title" ng-bind-html="toTrusted(info[1].title + ':')"></td>
-                                    <td style="width:30%;" ng-if="info[1].title" ng-bind-html="toTrusted(info[1].value)"></td>
-                                    <td ng-if="!info[1].title" colspan="2"></td>
+                            
+                            <table class="table" >
+                                <tr>
+                                    <td class="bold" ng-if="card.data.number" style="width: 25%;">Name:</td>
+                                    <td ng-if="card.data.number">{{card.data.name}} (#{{card.data.number}})</td>
+                                    
+                                    <td class="bold" ng-if="!card.data.number" style="width: 25%;">Name:</td>
+                                    <td ng-if="!card.data.number">{{card.data.name}}</td>
+                                    
+                                    <td class="bold">Manacost:</td>
+                                    <td ng-bind-html="replaceSymbols(card.data.manacost + ' - ({' + card.data.cmc + '})')"></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold" ng-if="card.data.color">Color</td>
+                                    <td ng-if="card.data.color">{{card.data.color.join(', ')}}</td>
+                                    
+                                    <td class="bold" ng-if="!card.data.color">Color</td>
+                                    <td ng-if="!card.data.color">Colorless</td>
+                                    
+                                    <td class="bold" ng-if="card.data.subtypes">Type:</td>
+                                    <td ng-if="card.data.subtypes">{{card.data.supertypes.join(', ')}} {{card.data.types.join(' ')}} — {{card.data.subtypes.join(' ')}}</td>
+                                    
+                                    <td class="bold" ng-if="!card.data.subtypes">Type:</td>
+                                    <td ng-if="!card.data.subtypes">{{card.data.supertypes.join(', ')}} {{card.data.types.join(' ')}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">Rarity:</td><td>{{card.data.rarity}}</td>
+                                    <td class="bold">Artist:</td><td>{{card.data.artist}}</td>
+                                </tr>
+                                <tr ng-if="card.data.power">
+                                    <td class="bold">Power:</td><td>{{card.data.power}}</td>
+                                    <td class="bold">Toughness:</td><td>{{card.data.toughness}}</td>
+                                </tr>
+                                <tr ng-if="card.data.layout">
+                                    <td class="bold">Layout</td>
+                                    <td>{{card.data.layout}}</td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </table>
                         </div>

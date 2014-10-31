@@ -14,11 +14,52 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title bold">Collection information</h3>
                             </div>
-                            <div class="panel-body">
-                                xyz
-                            </div>
-                            <table class="table">
-                                <tr><td>Hello</td><td>world</td></tr>
+                            <table class="table" ng-if="!$parent.loggedIn">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Price</th>
+                                </tr>
+                                <tr ng-if="card.collection.mintAmount">
+                                    <td>Mint:</td>
+                                    <td>{{card.collection.mintAmount}}</td>
+                                    <td>{{card.collection.mintPrice}} $</td>
+                                </tr>
+                                <tr ng-if="card.collection.nearMintAmount">
+                                    <td>Near Mint:</td>
+                                    <td>{{card.collection.nearMintAmount}}</td>
+                                    <td>{{card.collection.nearMintPrice}} $</td>
+                                </tr>
+                                <tr ng-if="card.collection.slightlyPlayedAmount">
+                                    <td>Mint:</td>
+                                    <td>{{card.collection.slightlyPlayedAmount}}</td>
+                                    <td>{{card.collection.slightlyPlayedPrice}} $</td>
+                                </tr>
+                                <tr ng-if="card.collection.moderatelyPlayedAmount">
+                                    <td>Mint:</td>
+                                    <td>{{card.collection.moderatelyPlayedAmount}}</td>
+                                    <td>{{card.collection.moderatelyPlayedPrice}} $</td>
+                                </tr>
+                                <tr ng-if="card.collection.heavilyPlayedAmount">
+                                    <td>Mint:</td>
+                                    <td>{{card.collection.heavilyPlayedAmount}}</td>
+                                    <td>{{card.collection.heavilyPlayedPrice}} $</td>
+                                </tr>
+                                <tr ng-if="card.collection.onlineAmount">
+                                    <td>Mint:</td>
+                                    <td>{{card.collection.onlineAmount}}</td>
+                                    <td>{{card.collection.onlinePrice}} $</td>
+                                </tr>
+                                <tr ng-if="card.collection.foilAmount">
+                                    <td>Mint:</td>
+                                    <td>{{card.collection.foilAmount}}</td>
+                                    <td>{{card.collection.foilPrice}} $</td>
+                                </tr>
+                                <tr ng-if="!card.collection.foilAmount &amp;&amp; !card.collection.onlineAmount &amp;&amp; !card.collection.heavilyPlayedAmount &amp;&amp;
+                                    !card.collection.moderatelyPlayedAmount &amp;&amp; !card.collection.slightlyPlayedAmount &amp;&amp; !card.collection.nearMintAmount
+                            &amp;&amp; !card.collection.mintAmount">
+                                    <td colspan="3" class="text-center"><i>Not found in the collection!</i></td>
+                                </tr>
                             </table>
                         </div>
                         <div class="panel panel-default">
@@ -29,28 +70,27 @@
                                 <p ng-bind-html="replaceSymbols(card.data.text)"></p>
                                 <p ng-if="card.data.flavor"><i>{{card.data.flavor}}</i></p>
                             </div>
-                            
                             <table class="table" >
                                 <tr>
                                     <td class="bold" ng-if="card.data.number" style="width: 25%;">Name:</td>
                                     <td ng-if="card.data.number">{{card.data.name}} (#{{card.data.number}})</td>
-                                    
+
                                     <td class="bold" ng-if="!card.data.number" style="width: 25%;">Name:</td>
                                     <td ng-if="!card.data.number">{{card.data.name}}</td>
-                                    
+
                                     <td class="bold">Manacost:</td>
-                                    <td ng-bind-html="replaceSymbols(card.data.manacost + ' - ({' + card.data.cmc + '})')"></td>
+                                    <td ng-bind-html="replaceSymbols(card.data.manacost +  ' - ({' +  card.data.cmc +  '})')"></td>
                                 </tr>
                                 <tr>
                                     <td class="bold" ng-if="card.data.color">Color</td>
                                     <td ng-if="card.data.color">{{card.data.color.join(', ')}}</td>
-                                    
+
                                     <td class="bold" ng-if="!card.data.color">Color</td>
                                     <td ng-if="!card.data.color">Colorless</td>
-                                    
+
                                     <td class="bold" ng-if="card.data.subtypes">Type:</td>
                                     <td ng-if="card.data.subtypes">{{card.data.supertypes.join(', ')}} {{card.data.types.join(' ')}} — {{card.data.subtypes.join(' ')}}</td>
-                                    
+
                                     <td class="bold" ng-if="!card.data.subtypes">Type:</td>
                                     <td ng-if="!card.data.subtypes">{{card.data.supertypes.join(', ')}} {{card.data.types.join(' ')}}</td>
                                 </tr>

@@ -3,8 +3,10 @@ package com.swords.controller;
 import com.swords.controller.response.CardResponse;
 import com.swords.controller.response.ExpansionResponse;
 import com.swords.model.Card;
+import com.swords.model.Collection;
 import com.swords.model.Expansion;
 import com.swords.model.repository.CardRepository;
+import com.swords.model.repository.CollectionRepository;
 import com.swords.model.repository.ExpansionRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ public class ExpansionController {
     private ExpansionRepository expansionRepository;
     @Autowired
     private CardRepository cardRepository;
+    @Autowired
+    private CollectionRepository collectionRepository;
 
     @RequestMapping("/expansion/template")
     public String expansionIndexTemplate() {
@@ -51,7 +55,13 @@ public class ExpansionController {
         
         //TODO: make a darn factory out of this, also try to cache them!
         for (Card card : cardlist) {
-            CardResponse cardResponse = new CardResponse(card);
+            Collection collection = collectionRepository.findById(card.getId());
+            
+            if(collection == null) {
+                collection = new Collection();
+            }
+            
+            CardResponse cardResponse = new CardResponse(card, collection);
             
             //Here we can set the collection/pricing/ruling data lately.
 

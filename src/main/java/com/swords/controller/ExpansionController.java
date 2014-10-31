@@ -1,6 +1,5 @@
 package com.swords.controller;
 
-import com.swords.controller.response.CardPrintInformationResponse;
 import com.swords.controller.response.CardResponse;
 import com.swords.controller.response.ExpansionResponse;
 import com.swords.model.Card;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.thymeleaf.util.StringUtils;
 
 @Controller
 public class ExpansionController {

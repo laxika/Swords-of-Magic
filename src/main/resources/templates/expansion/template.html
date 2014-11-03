@@ -31,27 +31,27 @@
                                     <td>{{card.collection.nearMintPrice}} $</td>
                                 </tr>
                                 <tr ng-if="card.collection.slightlyPlayedAmount">
-                                    <td>Mint:</td>
+                                    <td>Slightly played:</td>
                                     <td>{{card.collection.slightlyPlayedAmount}}</td>
                                     <td>{{card.collection.slightlyPlayedPrice}} $</td>
                                 </tr>
                                 <tr ng-if="card.collection.moderatelyPlayedAmount">
-                                    <td>Mint:</td>
+                                    <td>Moderately played:</td>
                                     <td>{{card.collection.moderatelyPlayedAmount}}</td>
                                     <td>{{card.collection.moderatelyPlayedPrice}} $</td>
                                 </tr>
                                 <tr ng-if="card.collection.heavilyPlayedAmount">
-                                    <td>Mint:</td>
+                                    <td>Heavily played:</td>
                                     <td>{{card.collection.heavilyPlayedAmount}}</td>
                                     <td>{{card.collection.heavilyPlayedPrice}} $</td>
                                 </tr>
                                 <tr ng-if="card.collection.onlineAmount">
-                                    <td>Mint:</td>
+                                    <td>Online (MTGO/MODO):</td>
                                     <td>{{card.collection.onlineAmount}}</td>
                                     <td>{{card.collection.onlinePrice}} $</td>
                                 </tr>
                                 <tr ng-if="card.collection.foilAmount">
-                                    <td>Mint:</td>
+                                    <td>Foil:</td>
                                     <td>{{card.collection.foilAmount}}</td>
                                     <td>{{card.collection.foilPrice}} $</td>
                                 </tr>
@@ -59,6 +59,48 @@
                                     !card.collection.moderatelyPlayedAmount &amp;&amp; !card.collection.slightlyPlayedAmount &amp;&amp; !card.collection.nearMintAmount
                             &amp;&amp; !card.collection.mintAmount">
                                     <td colspan="3" class="text-center"><i>Not found in the collection!</i></td>
+                                </tr>
+                            </table>
+                            <table class="table" ng-if="$parent.loggedIn">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Price</th>
+                                </tr>
+                                <tr>
+                                    <td>Mint:</td>
+                                    <td><input type="number" ng-model="card.collection.mintAmount" ng-change="sendUpdate($index, 'mintAmount')" integer=""/></td>
+                                    <td>{{card.collection.mintPrice}} $</td>
+                                </tr>
+                                <tr>
+                                    <td>Near Mint:</td>
+                                    <td><input type="number" ng-model="card.collection.nearMintAmount" ng-change="sendUpdate($index, 'nearMintAmount')" integer=""/></td>
+                                    <td>{{card.collection.nearMintPrice}} $</td>
+                                </tr>
+                                <tr>
+                                    <td>Slightly played:</td>
+                                    <td><input type="number" ng-model="card.collection.slightlyPlayedAmount" ng-change="sendUpdate($index, 'slightlyPlayedAmount')" integer=""/></td>
+                                    <td>{{card.collection.slightlyPlayedPrice}} $</td>
+                                </tr>
+                                <tr>
+                                    <td>Moderately played:</td>
+                                    <td><input type="number" ng-model="card.collection.moderatelyPlayedAmount" ng-change="sendUpdate($index, 'moderatelyPlayedAmount')" integer=""/></td>
+                                    <td>{{card.collection.moderatelyPlayedPrice}} $</td>
+                                </tr>
+                                <tr>
+                                    <td>Heavily played:</td>
+                                    <td><input type="number" ng-model="card.collection.heavilyPlayedAmount" ng-change="sendUpdate($index, 'heavilyPlayedAmount')" integer=""/></td>
+                                    <td>{{card.collection.heavilyPlayedPrice}} $</td>
+                                </tr>
+                                <tr>
+                                    <td>Online (MTGO/MODO):</td>
+                                    <td><input type="number" ng-model="card.collection.onlineAmount" ng-change="sendUpdate($index, 'onlineAmount')" integer=""/></td>
+                                    <td>{{card.collection.onlinePrice}} $</td>
+                                </tr>
+                                <tr>
+                                    <td>Foil:</td>
+                                    <td><input type="number" ng-model="card.collection.foilAmount" ng-change="sendUpdate($index, 'foilAmount')" integer=""/></td>
+                                    <td>{{card.collection.foilPrice}} $</td>
                                 </tr>
                             </table>
                         </div>

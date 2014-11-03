@@ -1,7 +1,3 @@
-function toUpperCase(input) {
-    return input.substring(0, 1).toUpperCase() + input.substring(1);
-}
-
 var swordsApp = angular.module('swords', ['ui.router']);
 
 swordsApp.filter('capitalize', function () {
@@ -12,8 +8,19 @@ swordsApp.filter('capitalize', function () {
     };
 });
 
+swordsApp.directive('integer', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, ele, attr, ctrl) {
+            ctrl.$parsers.unshift(function (viewValue) {
+                return parseInt(viewValue, 10);
+            });
+        }
+    };
+});
+
 swordsApp.config(function ($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.when('', '/index');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider.state('home', {
         url: '/',
@@ -78,7 +85,16 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 $('#card-accordion').find('#' + cardId).collapse('show');
             };
 
+            $scope.sendUpdate = function (index, type) {
+                console.log($scope.cards[index].collection);
+                //TODO: send a post request here
+            };
+
             $scope.replaceSymbols = function (text) {
+                if (text === null) {
+                    return '';
+                }
+
                 var newText = '';
 
                 newText = text.replace(/\{([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="$1 mana"/>');
@@ -100,7 +116,7 @@ swordsApp.controller('MainController', function ($scope) {
         show: false,
         text: ''
     };
-    $scope.loggedIn = false;
+    $scope.loggedIn = true;
     $scope.buttons = [
         {
             title: 'Home',

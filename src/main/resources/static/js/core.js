@@ -86,8 +86,16 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
             };
 
             $scope.sendUpdate = function (index, type) {
-                console.log($scope.cards[index].collection);
-                //TODO: send a post request here
+                var data = {};
+                
+                data.card = $scope.cards[index].data.id;
+                data.field = type;
+                data.value = $scope.cards[index].collection[type];
+
+                $http.post('/admin/collection/update', $.param(data)).
+                        error(function (data, status, headers, config) {
+                            console.log("ERROR!");
+                        });
             };
 
             $scope.replaceSymbols = function (text) {
@@ -116,7 +124,7 @@ swordsApp.controller('MainController', function ($scope) {
         show: false,
         text: ''
     };
-    $scope.loggedIn = true;
+    $scope.loggedIn = false;
     $scope.buttons = [
         {
             title: 'Home',

@@ -3,12 +3,18 @@ package com.swords.controller;
 import com.swords.component.ExpansionLoader;
 import com.swords.controller.response.LoginResponse;
 import com.swords.model.User;
+import com.swords.model.repository.CollectionRepository;
 import com.swords.model.repository.UserRepository;
 import com.swords.session.SessionType;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +28,8 @@ public class AdminController {
     private UserRepository userRepository;
     @Autowired
     private ExpansionLoader expansionLoader;
+    @Autowired
+    private CollectionRepository collectionRepository;
 
     @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
     public String home() {
@@ -56,5 +64,18 @@ public class AdminController {
         }
 
         return response;
+    }
+
+    @RequestMapping(value = "/admin/collection/update", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public ResponseEntity collectionUpdate(@RequestParam("card") String card, @RequestParam("field") String field, @RequestParam("value") String value) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(card));
+
+        Update update = new Update();
+        update.set(field, value);
+
+        collectionRepository.insertOrUpdateIfExists(query, update);
+        
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

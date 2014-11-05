@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.apache.commons.lang3.StringUtils;
 
 @Controller
 public class AdminController {
@@ -68,6 +69,10 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/collection/update", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public ResponseEntity collectionUpdate(@RequestParam("card") String card, @RequestParam("field") String field, @RequestParam("value") String value) {
+        if(value.isEmpty() || !StringUtils.isNumeric(value)) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(card));
 

@@ -1,5 +1,6 @@
 package com.swords.model;
 
+import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,7 +10,7 @@ public class Expansion {
     @Id
     private String id;
     private String name;
-    private String releaseDate;
+    private Date releaseDate;
     private String border;
     private String type;
     private String block;
@@ -32,11 +33,11 @@ public class Expansion {
         this.name = name;
     }
 
-    public String getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 

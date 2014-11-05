@@ -8,7 +8,9 @@ import com.swords.model.repository.ExpansionRepository;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.text.ParseException;
 import java.util.Iterator;
+import java.util.logging.Level;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,12 +63,16 @@ public class ExpansionLoader {
     }
 
     private void loadExpansion(JSONObject expansionData) {
-        Expansion expansion = expansionFactory.createExpansionFromData(expansionData);
-
-        this.saveExpansion(expansion);
-        this.loadCardsInExpansion(expansion, expansionData.getJSONArray("cards"));
-
-        logger.info("Loaded expansion: " + expansion.getName());
+        try {
+            Expansion expansion = expansionFactory.createExpansionFromData(expansionData);
+            
+            this.saveExpansion(expansion);
+            this.loadCardsInExpansion(expansion, expansionData.getJSONArray("cards"));
+            
+            logger.info("Loaded expansion: " + expansion.getName());
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(ExpansionLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void saveExpansion(Expansion expansion) {

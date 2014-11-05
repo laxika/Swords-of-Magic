@@ -43,7 +43,33 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
         url: '/',
         templateUrl: '/expansion/template',
         controller: function ($scope, $http) {
+            $scope.search = {
+                name: '',
+                modern: false,
+                standard: false
+            };
             $scope.expansions = {};
+
+            $scope.isModern = function () {
+                return function (item) {
+                    if(!$scope.search.modern) {
+                        return true;
+                    }
+                    
+                    return item['releaseDate'] >= 1059350400000;
+                };
+            };
+
+            $scope.isStandard = function () {
+                return function (item) {
+                    if(!$scope.search.standard) {
+                        return true;
+                    }
+                    
+                    return item['releaseDate'] >= 1349395200000;
+                };
+            };
+
             $scope.openExpansion = function (expansionId) {
                 $('#expansion-accordion').find('.collapse.in').collapse('hide');
                 $('#expansion-accordion').find('#' + expansionId).collapse('show');

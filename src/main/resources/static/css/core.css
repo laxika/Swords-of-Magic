@@ -59,3 +59,11 @@
 .cursor-default {
     cursor: default;
 }
+
+.text-middle {
+    vertical-align: middle !important;
+}
+
+.panel-invisible {
+    display: none;
+}

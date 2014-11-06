@@ -32,9 +32,9 @@ public class ExpansionLoader {
     @Autowired
     private CardRepository cardRepository;
     @Autowired
-    private CardFactory cardFactory;
+    private CardBuilder cardFactory;
     @Autowired
-    private ExpansionFactory expansionFactory;
+    private ExpansionBuilder expansionFactory;
 
     private final Resource carddata;
 
@@ -64,7 +64,7 @@ public class ExpansionLoader {
 
     private void loadExpansion(JSONObject expansionData) {
         try {
-            Expansion expansion = expansionFactory.createExpansionFromData(expansionData);
+            Expansion expansion = expansionFactory.buildExpansionFromJson(expansionData);
             
             this.saveExpansion(expansion);
             this.loadCardsInExpansion(expansion, expansionData.getJSONArray("cards"));
@@ -81,7 +81,7 @@ public class ExpansionLoader {
 
     private void loadCardsInExpansion(Expansion expansion, JSONArray carddata) {
         for (int i = 0; i < carddata.length(); i++) {
-            Card card = cardFactory.createCardFromData(carddata.getJSONObject(i), expansion.getCode());
+            Card card = cardFactory.buildCardFromJson(carddata.getJSONObject(i), expansion.getCode());
 
             this.saveCard(card);
         }

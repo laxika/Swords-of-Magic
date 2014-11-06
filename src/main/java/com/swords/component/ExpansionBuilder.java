@@ -8,11 +8,11 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExpansionFactory {
+public class ExpansionBuilder {
 
     private final SimpleDateFormat releaseDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    public Expansion createExpansionFromData(JSONObject expansionData) throws ParseException {
+    public Expansion buildExpansionFromJson(JSONObject expansionData) throws ParseException {
         Date releaseDate = releaseDateFormatter.parse(expansionData.getString("releaseDate"));
 
         Expansion expansion = new Expansion(expansionData.getString("code"));

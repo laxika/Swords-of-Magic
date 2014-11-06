@@ -6,9 +6,9 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CardFactory {
+public class CardBuilder {
 
-    public Card createCardFromData(JSONObject cardData, String setCode) {
+    public Card buildCardFromJson(JSONObject cardData, String setCode) {
         Card card;
 
         if (cardData.has("number")) {

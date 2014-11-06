@@ -11,7 +11,6 @@ import com.swords.model.Expansion;
 import com.swords.model.repository.CardRepository;
 import com.swords.model.repository.CollectionRepository;
 import com.swords.model.repository.ExpansionRepository;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,7 +29,7 @@ public class ExpansionController {
     @Autowired
     private CollectionRepository collectionRepository;
 
-    @RequestMapping("/expansion/template")
+    @RequestMapping("/expansion/index")
     public String expansionIndexTemplate() {
         return "expansion/index";
     }
@@ -40,23 +39,21 @@ public class ExpansionController {
     public ExpansionIndexResponse expansionIndexData() {
         List<Expansion> expansionlist = expansionRepository.findAll(new Sort(new Sort.Order(Sort.Direction.DESC, "releaseDate")));
 
-        ArrayList<ExpansionItemResponse> expansionResponseHolder = new ArrayList<>();
+        ExpansionIndexResponse indexResponse = new ExpansionIndexResponse();
         
-        for (Expansion expansion : expansionlist) {
+        expansionlist.stream().forEach((expansion) -> {
             ExpansionItemResponse response = new ExpansionItemResponse();
             
             response.setData(expansion);
             response.setCollection(new CollectionItemResponse());
-            expansionResponseHolder.add(response);
-        }
+            
+            indexResponse.addExpansion(response);
+        });
         
-        ExpansionIndexResponse indexResponse = new ExpansionIndexResponse();
-        indexResponse.setExpansionlist(expansionResponseHolder);
-
         return indexResponse;
     }
 
-    @RequestMapping("/expansion/specific")
+    @RequestMapping("/expansion/entry")
     public String expansionTemplate() {
         return "expansion/entry";
     }
@@ -64,34 +61,28 @@ public class ExpansionController {
     @ResponseBody
     @RequestMapping(value = "/expansion/data/{setname}", produces = "application/json; charset=utf-8")
     public ExpansionEntryResponse expansionData(@PathVariable String setname) {
-        //TODO: move this to some cache or something, at least cache the static objects etc...
         Expansion expansion = expansionRepository.findById(setname);
 
         List<Card> cardlist = cardRepository.findByExpansionId(setname);
 
-        ArrayList<CardItemResponse> cardResponseHolder = new ArrayList<>();
+        ExpansionEntryResponse response = new ExpansionEntryResponse();
 
-        //TODO: make a darn factory out of this, also try to cache them!
-        for (Card card : cardlist) {
+        cardlist.stream().forEach((card) -> {
             Collection collection = collectionRepository.findById(card.getId());
 
             if (collection == null) {
                 collection = new Collection();
             }
-
-            CardItemResponse cardResponse = new CardItemResponse(card, collection);
-
-            //Here we can set the collection/pricing/ruling data lately.
-            cardResponseHolder.add(cardResponse);
-        }
-
-        ExpansionEntryResponse response = new ExpansionEntryResponse();
+            
+            response.addCard(new CardItemResponse(card, collection));
+        });
 
         ExpansionItemResponse resp = new ExpansionItemResponse();
+        
         resp.setData(expansion);
+        resp.setCollection(new CollectionItemResponse());
 
         response.setExpansion(resp);
-        response.setCardlist(cardResponseHolder);
 
         return response;
     }

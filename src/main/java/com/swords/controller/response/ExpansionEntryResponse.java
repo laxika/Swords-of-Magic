@@ -1,11 +1,12 @@
 package com.swords.controller.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpansionEntryResponse {
 
     private ExpansionItemResponse expansion;
-    private List<CardItemResponse> cardlist;
+    private List<CardItemResponse> cardlist = new ArrayList<>();
 
     public ExpansionItemResponse getExpansion() {
         return expansion;
@@ -18,8 +19,8 @@ public class ExpansionEntryResponse {
     public List<CardItemResponse> getCardlist() {
         return cardlist;
     }
-
-    public void setCardlist(List<CardItemResponse> cardlist) {
-        this.cardlist = cardlist;
+    
+    public void addCard(CardItemResponse card) {
+        cardlist.add(card);
     }
 }

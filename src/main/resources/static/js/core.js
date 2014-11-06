@@ -37,11 +37,11 @@ swordsApp.directive('integer', function () {
 });
 
 swordsApp.config(function ($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('expansion/index');
 
     $stateProvider.state('home', {
-        url: '/',
-        templateUrl: '/expansion/template',
+        url: '/expansion/index',
+        templateUrl: '/expansion/index',
         controller: function ($scope, $http) {
             $scope.search = {
                 name: '',
@@ -81,7 +81,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
             });
         }
     }).state('admin/login', {
-        url: '/',
+        url: '/admin/login',
         templateUrl: '/admin/login',
         controller: function ($scope, $http, $state) {
             $scope.data = {};
@@ -112,14 +112,14 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
             };
         }
     }).state('admin/home', {
-        url: '/',
-        templateUrl: '/admin/home'
+        url: '/admin/index',
+        templateUrl: '/admin/index'
     }).state('admin/carddata', {
         url: '/',
         templateUrl: '/admin/carddata'
     }).state('expansion/cardlist', {
         url: '/expansion/:expansionId',
-        templateUrl: '/expansion/specific',
+        templateUrl: '/expansion/entry',
         controller: function ($scope, $state, $http, $sce) {
             $scope.cards = {};
             $scope.expansion = [];

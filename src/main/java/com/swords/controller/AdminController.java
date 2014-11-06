@@ -32,9 +32,9 @@ public class AdminController {
     @Autowired
     private CollectionRepository collectionRepository;
 
-    @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/index", method = RequestMethod.GET)
     public String home() {
-        return "admin/home";
+        return "admin/index";
     }
 
     @RequestMapping(value = "/admin/carddata", method = RequestMethod.GET)

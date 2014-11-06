@@ -33,14 +33,16 @@
                 <thead>
                     <tr class="text-center">
                         <th>Name</th>
-                        <th style="width: 20%;" class="text-center">Count</th>
+                        <th style="width: 20%;" class="text-center">Count<br /><small>(Cards in stock!)</small></th>
                         <th style="width: 20%;" class="text-center">Options</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard()">
                     <tr style="height: 52px;">
                         <td class="text-middle"><img class="img-thumbnail expansion-set-icon" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg" alt="{{expansion.data.name}} Icon" /> {{expansion.data.name}}</td>
-                        <td class="text-middle text-center">0</td>
+                        <td class="text-middle text-center">
+                            {{expansion.collection.mythicCount + expansion.collection.rareCount + expansion.collection.uncommonCount +expansion.collection.commonCount}}
+                        </td>
                         <td class="text-center">
                             <button class="btn btn-default" data-ui-sref="expansion/cardlist({expansionId: expansion.data.id})">
                                 <span class="glyphicon glyphicon-chevron-up"></span> Open
@@ -59,6 +61,25 @@
                                 <div class="col-md-10">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
+                                            <h3 class="panel-title bold">Collection information</h3>
+                                        </div>
+                                        <table class="table" >
+                                            <tr>
+                                                <td class="bold" style="width: 25%;">Mythic Rare:</td>
+                                                <td style="width: 25%;">{{expansion.collection.mythicCount}}</td>
+                                                <td class="bold" style="width: 25%;">Rare:</td>
+                                                <td style="width: 25%;">{{expansion.collection.rareCount}}</td>
+                                           </tr>
+                                            <tr>
+                                                <td class="bold">Uncommon:</td>
+                                                <td>{{expansion.collection.uncommonCount}}</td>
+                                                <td class="bold">Common:</td>
+                                                <td>{{expansion.collection.commonCount}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
                                             <h3 class="panel-title bold">General information</h3>
                                         </div>
                                         <div class="panel-body">
@@ -67,20 +88,15 @@
                                         <table class="table" >
                                             <tr>
                                                 <td class="bold" style="width: 15%;">Name:</td><td>{{expansion.data.name}}</td>
-                                            </tr>
+                                                <td class="bold">Type:</td><td>{{expansion.data.type| capitalize}}</td>
+                                           </tr>
                                             <tr>
                                                 <td class="bold">Release date:</td><td>{{expansion.data.releaseDate| date:'yyyy-MM-dd'}}</td>
-                                            </tr>
-                                            <tr>
                                                 <td class="bold">Border:</td><td>{{expansion.data.border| capitalize}}</td>
                                             </tr>
                                             <tr>
-                                                <td class="bold">Type:</td><td>{{expansion.data.type| capitalize}}</td>
-                                            </tr>
-                                            <tr ng-if="expansion.data.block">
-                                                <td class="bold">Block:</td><td>{{expansion.data.block}}</td>
-                                            </tr>
-                                            <tr>
+                                                <td class="bold" ng-if="expansion.data.block">Block:</td><td>{{expansion.data.block}}</td>
+                                                <td class="bold" ng-if="!expansion.data.block">Block:</td><td ng-if="!expansion.data.block">Not in block</td>
                                                 <td class="bold">Online only:</td><td>{{expansion.data.onlineOnly.toString() | capitalize}}</td>
                                             </tr>
                                         </table>

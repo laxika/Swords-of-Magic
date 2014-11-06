@@ -3,12 +3,12 @@ package com.swords.controller.response;
 import com.swords.model.Card;
 import com.swords.model.Collection;
 
-public class CardResponse {
+public class CardItemResponse {
 
     private final Card data;
     private final Collection collection;
     
-    public CardResponse(Card card, Collection collection) {
+    public CardItemResponse(Card card, Collection collection) {
         this.data = card;
         this.collection = collection;
     }

@@ -56,7 +56,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                         return true;
                     }
                     
-                    return item['releaseDate'] >= 1059350400000;
+                    return item['data']['releaseDate'] >= 1059350400000;
                 };
             };
 
@@ -66,7 +66,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                         return true;
                     }
                     
-                    return item['releaseDate'] >= 1349395200000;
+                    return item['data']['releaseDate'] >= 1349395200000;
                 };
             };
 
@@ -76,7 +76,8 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
             };
 
             $http.get('/expansion/data').success(function (data, status, headers, config) {
-                $scope.expansions = data;
+                $scope.expansions = data.expansionlist;
+                console.log($scope.expansions.length);
             });
         }
     }).state('admin/login', {

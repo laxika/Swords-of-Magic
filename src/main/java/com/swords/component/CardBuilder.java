@@ -9,13 +9,7 @@ import org.springframework.stereotype.Component;
 public class CardBuilder {
 
     public Card buildCardFromJson(JSONObject cardData, String setCode) {
-        Card card;
-
-        if (cardData.has("number")) {
-            card = new Card(setCode + "_" + cardData.getString("imageName") + "_" + cardData.getString("number"));
-        } else {
-            card = new Card(setCode + "_" + cardData.getString("imageName"));
-        }
+        Card card = new Card(this.buildCardId(cardData, setCode));
 
         card.setName(cardData.getString("name"));
         card.setExpansion(setCode);
@@ -23,15 +17,15 @@ public class CardBuilder {
         if (cardData.has("colors")) {
             card.setColor(JSONUtils.jsonArrayToStringArray(cardData.getJSONArray("colors")));
         }
-        
+
         if (cardData.has("supertypes")) {
             card.setSupertypes(JSONUtils.jsonArrayToStringArray(cardData.getJSONArray("supertypes")));
         }
-        
+
         if (cardData.has("types")) {
             card.setTypes(JSONUtils.jsonArrayToStringArray(cardData.getJSONArray("types")));
         }
-        
+
         if (cardData.has("subtypes")) {
             card.setSubtypes(JSONUtils.jsonArrayToStringArray(cardData.getJSONArray("subtypes")));
         }
@@ -81,5 +75,11 @@ public class CardBuilder {
         }
 
         return card;
+    }
+
+    private String buildCardId(JSONObject cardData, String setCode) {
+        return cardData.has("number")
+                ? setCode + "_" + cardData.getString("imageName") + "_" + cardData.getString("number").replace(" ", "_")
+                : setCode + "_" + cardData.getString("imageName").replace(" ", "_");
     }
 }

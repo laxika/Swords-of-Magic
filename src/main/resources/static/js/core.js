@@ -123,6 +123,9 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
         controller: function ($scope, $state, $http, $sce) {
             $scope.cards = {};
             $scope.expansion = [];
+            $scope.search = {
+                name: ''
+            };
 
             $scope.openCard = function (cardId) {
                 $('#card-accordion').find('.collapse.in').collapse('hide');

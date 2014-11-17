@@ -1,5 +1,20 @@
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="text-center">Search</h4>
+        <form role="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="cardName">Card name:</label>
+                        <input type="text" class="form-control" id="cardName" ng-model="search.name" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <div class="panel-group" id="card-accordion">
-    <div class="panel panel-default" ng-repeat="card in cards">
+    <div class="panel panel-default" ng-repeat="card in cards | filter:{data: { name: search.name}}">
         <div class="panel-heading">
             <h4 class="cursor-link panel-title" ng-click="openCard(card.data.multiverseId)">{{card.data.name}}</h4>
         </div>

@@ -37,7 +37,7 @@
                         <th style="width: 20%;" class="text-center">Options</th>
                     </tr>
                 </thead>
-                <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard()">
+                <tbody ng-repeat="expansion in expansions | filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard()">
                     <tr style="height: 52px;">
                         <td class="text-middle"><img class="img-thumbnail expansion-set-icon" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg" alt="{{expansion.data.name}} Icon" /> {{expansion.data.name}}</td>
                         <td class="text-middle text-center">

@@ -3,6 +3,7 @@ package com.swords.controller;
 import com.swords.component.ExpansionLoader;
 import com.swords.controller.response.LoginResponse;
 import com.swords.model.User;
+import com.swords.model.repository.CardRepository;
 import com.swords.model.repository.CollectionRepository;
 import com.swords.model.repository.UserRepository;
 import com.swords.session.SessionType;
@@ -31,6 +32,8 @@ public class AdminController {
     private ExpansionLoader expansionLoader;
     @Autowired
     private CollectionRepository collectionRepository;
+    @Autowired
+    private CardRepository cardRepository;
 
     @RequestMapping(value = "/admin/index", method = RequestMethod.GET)
     public String home() {
@@ -69,18 +72,18 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/collection/update", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public ResponseEntity collectionUpdate(@RequestParam("card") String card, @RequestParam("field") String field, @RequestParam("value") String value) {
-        if(value.isEmpty() || !StringUtils.isNumeric(value)) {
+        Query existsQuery = new Query();
+        existsQuery.addCriteria(Criteria.where("id").is(card));
+        
+        if (value.isEmpty() || !StringUtils.isNumeric(value) || !cardRepository.exists(existsQuery)) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        
-        Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(card));
 
         Update update = new Update();
         update.set(field, value);
 
-        collectionRepository.insertOrUpdateIfExists(query, update);
-        
+        collectionRepository.insertOrUpdateIfExists(existsQuery, update);
+
         return new ResponseEntity(HttpStatus.OK);
     }
 }

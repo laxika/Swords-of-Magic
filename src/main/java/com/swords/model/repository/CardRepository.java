@@ -24,5 +24,9 @@ public class CardRepository {
 
         return mongoTemplate.find(query, Card.class);
     }
+    
+    public boolean exists(Query query) {
+        return mongoTemplate.exists(query, Card.class);
+    }
 
 }

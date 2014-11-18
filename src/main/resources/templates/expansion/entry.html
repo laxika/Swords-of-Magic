@@ -1,6 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <h4 class="text-center">Search</h4>
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-extended">
+                Search
+            </div>
+            <div class="panel-body">
         <form role="form">
             <div class="row">
                 <div class="col-md-12">
@@ -11,9 +15,12 @@
                 </div>
             </div>
         </form>
+            </div>
+        </div>
     </div>
 </div>
-<div class="panel-group" id="card-accordion">
+<div class="panel-group panel panel-default" id="card-accordion">
+        <div class="panel-body">
     <div class="panel panel-default" ng-repeat="card in cards | filter:{data: { name: search.name}}">
         <div class="panel-heading">
             <h4 class="cursor-link panel-title" ng-click="openCard(card.data.multiverseId)">{{card.data.name}}</h4>
@@ -178,6 +185,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>

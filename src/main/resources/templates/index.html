@@ -19,8 +19,19 @@
         <div class="container">
             <div id="menu" class="row">
                 <div class="col-md-12 text-right">
-                    <div class="button-container">
-                        <button type="button" class="btn btn-default" ng-repeat="button in buttons" data-ui-sref="{{button.sref}}" data-ui-sref-active="active">{{button.title}}</button>
+                    <div class="panel panel-default panel-shadow">
+                        <div class="panel-body">
+                            <div>
+                                <img src="http://placehold.it/962x120&amp;text=Site%20logo" alt="Site logo" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-shadow">
+                        <div class="panel-body">
+                            <div>
+                                <button type="button" class="btn btn-default" ng-repeat="button in buttons" data-ui-sref="{{button.sref}}" data-ui-sref-active="active">{{button.title}}</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@
 /** Header **/
 
 .button-container {
-    padding: 10px;
+    padding: 15px;
     padding-right: 0;
 }
 
@@ -68,4 +68,8 @@ body {
     text-align: center;
     font-weight: 700;
     font-size: 16px;
+}
+
+.panel-shadow {
+    box-shadow: 0px 0px 10px #888;
 }

@@ -73,3 +73,48 @@ body {
 .panel-shadow {
     box-shadow: 0px 0px 10px #888;
 }
+
+/* Loading anim */
+ul.keyframes-demo {
+    list-style:none!important;
+    margin:0 auto;
+text-align: center;
+padding: 50px 0;
+}
+
+ul.keyframes-demo li {
+    display:inline-block;
+vertical-align: top;
+    position:relative;
+    width:60px;
+    height:60px;
+    border:1px solid #fff;
+    border-radius:50%;
+    margin-left:10px;
+    background:#353E49;
+}
+
+.circulo { 
+    background-color: #fff; 
+    width:60px;
+    margin: -1px;
+    height:60px;
+    border-radius:50%;
+    animation:loading 4.5s linear forwards infinite;
+}
+
+.capa1 { animation-delay:0.3s; }
+.capa2 { animation-delay:0.6s; }
+.capa3 { animation-delay:0.9s; }
+.capa4 { animation-delay:1.2s; }
+.capa5 { animation-delay:1.5s; }
+
+
+
+@keyframes loading {
+    0%{-webkit-transform:scale(0,0);}
+    25%{-webkit-transform:scale(1,1);}  
+    50%{-webkit-transform:scale(1,1);} 
+    75%{-webkit-transform:scale(0,0);} 
+    100%{-webkit-transform:scale(0,0);}    
+}

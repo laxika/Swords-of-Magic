@@ -11,12 +11,12 @@
 }
 
 .page-wrap:after {
-  content: "";
-  display: block;
+    content: "";
+    display: block;
 }
 
 .site-footer, .page-wrap:after {
-  height: 50px; 
+    height: 50px; 
 }
 
 /** Header **/
@@ -51,6 +51,14 @@
 
 .bg-danger {
     padding: 10px;
+}
+
+/** Card **/
+
+.card-image {
+    border: solid 1px;
+    box-shadow: 0px 0px 10px #000;
+    border-radius: 5px;
 }
 
 /** General **/
@@ -92,6 +100,8 @@ html, body, .container {
 .panel-shadow {
     box-shadow: 0px 0px 10px #888;
 }
+
+/** Loading animation **/
 
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;

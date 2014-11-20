@@ -17,31 +17,38 @@
     </head>
     <body ng-controller="MainController">
         <div class="container">
-            <div id="menu" class="row">
-                <div class="col-md-12 text-right">
-                    <div class="panel panel-default panel-shadow">
-                        <div class="panel-body">
-                            <div>
+            <div class="page-wrap">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <div style="border-top-right-radius: 0; border-top-left-radius: 0;" class="panel panel-default panel-shadow">
+                            <div class="panel-body">
                                 <img src="http://placehold.it/962x120&amp;text=Site%20logo" alt="Site logo" />
                             </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default panel-shadow">
-                        <div class="panel-body">
-                            <div>
+                        <div id="menu" class="panel panel-default panel-shadow">
+                            <div class="panel-body">
                                 <button type="button" class="btn btn-default" ng-repeat="button in buttons" data-ui-sref="{{button.sref}}" data-ui-sref-active="active">{{button.title}}</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12" ng-show="error.show">
-                    <p class="bg-danger">{{error.text}}</p>
+                <div class="row">
+                    <div class="col-md-12" ng-show="error.show">
+                        <p class="bg-danger">{{error.text}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" data-ui-view="">
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12" data-ui-view="">
+            <div class="row site-footer">
+                <div class="col-md-12 text-right" style="height: 50px;">
+                    <div style="border-bottom-right-radius: 0; border-bottom-left-radius: 0;margin-bottom: 0; height: 100%;" class="panel panel-default panel-shadow">
+                        <div class="panel-body text-center">
+                            Created with Swords of Magic.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

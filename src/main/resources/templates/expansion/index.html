@@ -19,6 +19,11 @@
                                     <input type="checkbox" ng-model="search.modern"/> is modern
                                 </label>
                             </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="search.onlyWithCards"/> have cards in collection
+                                </label>
+                            </div>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
@@ -44,7 +49,7 @@
                             <th style="width: 20%;" class="text-center">Options</th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard()">
+                    <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard() | filter:isWithCards()">
                         <tr style="height: 52px;">
                             <td class="text-middle"><img class="img-thumbnail expansion-set-icon" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg" alt="{{expansion.data.name}} Icon" /> {{expansion.data.name}}</td>
                             <td ng-if="expansion.collection" class="text-middle text-center">

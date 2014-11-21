@@ -75,7 +75,8 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
             $scope.search = {
                 name: '',
                 modern: false,
-                standard: false
+                standard: false,
+                onlyWithCards: true
             };
             $scope.expansions = {};
 
@@ -96,6 +97,16 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                     }
 
                     return item['data']['releaseDate'] >= 1349395200000;
+                };
+            };
+
+            $scope.isWithCards = function () {
+                return function (item) {
+                    if (!$scope.search.onlyWithCards) {
+                        return true;
+                    }
+
+                    return item['collection'] !== null && (item['collection']['commonAmount'] != 0 || item['collection']['uncommonAmount'] || item['collection']['rareAmount'] || item['collection']['mythicAmount']);
                 };
             };
 

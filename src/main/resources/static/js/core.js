@@ -1,5 +1,13 @@
 var swordsApp = angular.module('swords', ['ui.router']);
 
+swordsApp.factory('dataHolder', function () {
+    var service = {};
+
+    service.isLoading = false;
+
+    return service;
+});
+
 swordsApp.filter('capitalize', function () {
     return function (input, all) {
         return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
@@ -19,24 +27,24 @@ swordsApp.directive('integer', function () {
     };
 });
 
-swordsApp.directive('loading', function ($http) {
+swordsApp.directive('loading', function ($http, dataHolder) {
     return {
-            restrict: 'A',
-            link: function (scope, elm, attrs)
-            {
-                scope.isLoading = function () {
-                    return $http.pendingRequests.length > 0;
-                };
+        restrict: 'A',
+        link: function (scope, elm, attrs)
+        {
+            scope.isLoading = function () {
+                return dataHolder.isLoading;//$http.pendingRequests.length > 0;
+            };
 
-                scope.$watch(scope.isLoading, function (v)
-                {
-                    if(v){
-                        elm.show();
-                    }else{
-                        elm.hide();
-                    }
-                });
-            }
+            scope.$watch(scope.isLoading, function (v)
+            {
+                if (v) {
+                    elm.show();
+                } else {
+                    elm.hide();
+                }
+            });
+        }
     };
 });
 
@@ -63,7 +71,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     $stateProvider.state('home', {
         url: '/expansion/index',
         templateUrl: '/expansion/index',
-        controller: function ($scope, $http) {
+        controller: function ($scope, $http, dataHolder) {
             $scope.search = {
                 name: '',
                 modern: false,
@@ -73,20 +81,20 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
 
             $scope.isModern = function () {
                 return function (item) {
-                    if(!$scope.search.modern) {
+                    if (!$scope.search.modern) {
                         return true;
                     }
-                    
+
                     return item['data']['releaseDate'] >= 1059350400000;
                 };
             };
 
             $scope.isStandard = function () {
                 return function (item) {
-                    if(!$scope.search.standard) {
+                    if (!$scope.search.standard) {
                         return true;
                     }
-                    
+
                     return item['data']['releaseDate'] >= 1349395200000;
                 };
             };
@@ -95,10 +103,12 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 $('#expansion-accordion').find('.collapse.in').collapse('hide');
                 $('#expansion-accordion').find('#' + expansionId).collapse('show');
             };
+            
+            dataHolder.isLoading = true;
 
             $http.get('/expansion/data').success(function (data, status, headers, config) {
                 $scope.expansions = data.expansionlist;
-                console.log($scope.expansions.length);
+                dataHolder.isLoading = false;
             });
         }
     }).state('admin/login', {
@@ -141,7 +151,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     }).state('expansion/cardlist', {
         url: '/expansion/:expansionId',
         templateUrl: '/expansion/entry',
-        controller: function ($scope, $state, $http, $sce) {
+        controller: function ($scope, $state, $http, $sce, dataHolder) {
             $scope.cards = {};
             $scope.expansion = [];
             $scope.search = {
@@ -179,9 +189,12 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 return $sce.trustAsHtml(newText);
             };
 
+            dataHolder.isLoading = true;
+
             $http.get('/expansion/data/' + $state.params.expansionId).success(function (data, status, headers, config) {
                 $scope.expansion = data.expansion;
                 $scope.cards = data.cardlist;
+                dataHolder.isLoading = false;
             });
         }
     });

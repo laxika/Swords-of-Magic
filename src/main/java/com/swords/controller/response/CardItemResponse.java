@@ -1,14 +1,14 @@
 package com.swords.controller.response;
 
 import com.swords.model.Card;
-import com.swords.model.Collection;
+import com.swords.model.CardCollection;
 
 public class CardItemResponse {
 
     private final Card data;
-    private final Collection collection;
+    private final CardCollection collection;
     
-    public CardItemResponse(Card card, Collection collection) {
+    public CardItemResponse(Card card, CardCollection collection) {
         this.data = card;
         this.collection = collection;
     }
@@ -17,7 +17,7 @@ public class CardItemResponse {
         return data;
     }
 
-    public Collection getCollection() {
+    public CardCollection getCollection() {
         return collection;
     }
 }

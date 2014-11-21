@@ -1,11 +1,12 @@
 package com.swords.controller.response;
 
 import com.swords.model.Expansion;
+import com.swords.model.ExpansionCollection;
 
 public class ExpansionItemResponse {
 
     private Expansion data;
-    private CollectionItemResponse collection;
+    private ExpansionCollection collection;
 
     public Expansion getData() {
         return data;
@@ -15,11 +16,11 @@ public class ExpansionItemResponse {
         this.data = data;
     }
 
-    public CollectionItemResponse getCollection() {
+    public ExpansionCollection getCollection() {
         return collection;
     }
 
-    public void setCollection(CollectionItemResponse collection) {
+    public void setCollection(ExpansionCollection collection) {
         this.collection = collection;
     }
 }

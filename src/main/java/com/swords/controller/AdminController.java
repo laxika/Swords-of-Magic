@@ -2,9 +2,13 @@ package com.swords.controller;
 
 import com.swords.component.ExpansionLoader;
 import com.swords.controller.response.LoginResponse;
+import com.swords.model.Card;
+import com.swords.model.CardCollection;
+import com.swords.model.ExpansionCollection;
 import com.swords.model.User;
 import com.swords.model.repository.CardRepository;
-import com.swords.model.repository.CollectionRepository;
+import com.swords.model.repository.CardCollectionRepository;
+import com.swords.model.repository.ExpansionCollectionRepository;
 import com.swords.model.repository.UserRepository;
 import com.swords.session.SessionType;
 import java.io.IOException;
@@ -31,7 +35,9 @@ public class AdminController {
     @Autowired
     private ExpansionLoader expansionLoader;
     @Autowired
-    private CollectionRepository collectionRepository;
+    private CardCollectionRepository cardCollectionRepository;
+    @Autowired
+    private ExpansionCollectionRepository expansionCollectionRepository;
     @Autowired
     private CardRepository cardRepository;
 
@@ -71,18 +77,24 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/collection/update", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    public ResponseEntity collectionUpdate(@RequestParam("card") String card, @RequestParam("field") String field, @RequestParam("value") String value) {
-        Query existsQuery = new Query();
-        existsQuery.addCriteria(Criteria.where("id").is(card));
-        
-        if (value.isEmpty() || !StringUtils.isNumeric(value) || !cardRepository.exists(existsQuery)) {
+    public ResponseEntity collectionUpdate(@RequestParam("card") String cardId, @RequestParam("field") String field, @RequestParam("value") String value) {
+        Card card = cardRepository.findById(cardId);
+
+        if (value.isEmpty() || !StringUtils.isNumeric(value) || card == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-        Update update = new Update();
-        update.set(field, value);
-
-        collectionRepository.insertOrUpdateIfExists(existsQuery, update);
+        CardCollection collection = cardCollectionRepository.findByIdOrCreateIfNotExists(cardId);
+        
+        int difference = Integer.parseInt(value) - collection.getAmountByName(field);
+        
+        collection.setAmountByName(field, Integer.parseInt(value));
+        
+        ExpansionCollection expansionCollection = expansionCollectionRepository.findByIdOrCreateIfNotExists(card.getExpansion());
+        expansionCollection.setRarityByName(card.getRarity(), expansionCollection.getRarityByName(card.getRarity()) + difference);
+        
+        cardCollectionRepository.save(collection);
+        expansionCollectionRepository.save(expansionCollection);
 
         return new ResponseEntity(HttpStatus.OK);
     }

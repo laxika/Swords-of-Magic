@@ -47,9 +47,10 @@
                     <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard()">
                         <tr style="height: 52px;">
                             <td class="text-middle"><img class="img-thumbnail expansion-set-icon" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg" alt="{{expansion.data.name}} Icon" /> {{expansion.data.name}}</td>
-                            <td class="text-middle text-center">
-                                {{expansion.collection.mythicCount + expansion.collection.rareCount + expansion.collection.uncommonCount + expansion.collection.commonCount}}
+                            <td ng-if="expansion.collection" class="text-middle text-center">
+                                {{expansion.collection.mythicAmount + expansion.collection.rareAmount + expansion.collection.uncommonAmount + expansion.collection.commonAmount}}
                             </td>
+                            <td ng-if="!expansion.collection" class="text-middle text-center">0</td>
                             <td class="text-center">
                                 <button class="btn btn-default" data-ui-sref="expansion/cardlist({expansionId: expansion.data.id})">
                                     <span class="glyphicon glyphicon-chevron-up"></span> Open
@@ -73,15 +74,15 @@
                                             <table class="table" >
                                                 <tr>
                                                     <td class="bold" style="width: 25%;">Mythic Rare:</td>
-                                                    <td style="width: 25%;">{{expansion.collection.mythicCount}}</td>
+                                                    <td style="width: 25%;">{{expansion.collection.mythicAmount}}</td>
                                                     <td class="bold" style="width: 25%;">Rare:</td>
-                                                    <td style="width: 25%;">{{expansion.collection.rareCount}}</td>
+                                                    <td style="width: 25%;">{{expansion.collection.rareAmount}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bold">Uncommon:</td>
-                                                    <td>{{expansion.collection.uncommonCount}}</td>
+                                                    <td>{{expansion.collection.uncommonAmount}}</td>
                                                     <td class="bold">Common:</td>
-                                                    <td>{{expansion.collection.commonCount}}</td>
+                                                    <td>{{expansion.collection.commonAmount}}</td>
                                                 </tr>
                                             </table>
                                         </div>

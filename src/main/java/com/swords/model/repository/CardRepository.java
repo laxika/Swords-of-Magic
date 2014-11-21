@@ -18,6 +18,10 @@ public class CardRepository {
         mongoTemplate.insert(card);
     }
     
+    public Card findById(String cardId) {
+        return mongoTemplate.findById(cardId, Card.class);
+    }
+    
     public List<Card> findByExpansionId(String expansionId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("expansion").is(expansionId));

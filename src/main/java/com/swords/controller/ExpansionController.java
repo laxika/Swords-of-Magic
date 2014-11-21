@@ -6,10 +6,12 @@ import com.swords.controller.response.ExpansionEntryResponse;
 import com.swords.controller.response.ExpansionIndexResponse;
 import com.swords.controller.response.ExpansionItemResponse;
 import com.swords.model.Card;
-import com.swords.model.Collection;
+import com.swords.model.CardCollection;
 import com.swords.model.Expansion;
+import com.swords.model.ExpansionCollection;
 import com.swords.model.repository.CardRepository;
-import com.swords.model.repository.CollectionRepository;
+import com.swords.model.repository.CardCollectionRepository;
+import com.swords.model.repository.ExpansionCollectionRepository;
 import com.swords.model.repository.ExpansionRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,9 @@ public class ExpansionController {
     @Autowired
     private CardRepository cardRepository;
     @Autowired
-    private CollectionRepository collectionRepository;
+    private CardCollectionRepository collectionRepository;
+    @Autowired
+    private ExpansionCollectionRepository expansionCollectionRepository;
 
     @RequestMapping("/expansion/index")
     public String expansionIndexTemplate() {
@@ -40,16 +44,18 @@ public class ExpansionController {
         List<Expansion> expansionlist = expansionRepository.findAll(new Sort(new Sort.Order(Sort.Direction.DESC, "releaseDate")));
 
         ExpansionIndexResponse indexResponse = new ExpansionIndexResponse();
-        
+
         expansionlist.stream().forEach((expansion) -> {
+            ExpansionCollection expansionCollection = expansionCollectionRepository.findById(expansion.getId());
+            
             ExpansionItemResponse response = new ExpansionItemResponse();
-            
+
             response.setData(expansion);
-            response.setCollection(new CollectionItemResponse());
-            
+            response.setCollection(expansionCollection);
+
             indexResponse.addExpansion(response);
         });
-        
+
         return indexResponse;
     }
 
@@ -68,19 +74,21 @@ public class ExpansionController {
         ExpansionEntryResponse response = new ExpansionEntryResponse();
 
         cardlist.stream().forEach((card) -> {
-            Collection collection = collectionRepository.findById(card.getId());
+            CardCollection collection = collectionRepository.findById(card.getId());
 
             if (collection == null) {
-                collection = new Collection();
+                collection = new CardCollection(card.getId());
             }
-            
+
             response.addCard(new CardItemResponse(card, collection));
         });
 
+        ExpansionCollection expansionCollection = expansionCollectionRepository.findById(expansion.getId());
+
         ExpansionItemResponse resp = new ExpansionItemResponse();
-        
+
         resp.setData(expansion);
-        resp.setCollection(new CollectionItemResponse());
+        resp.setCollection(expansionCollection);
 
         response.setExpansion(resp);
 

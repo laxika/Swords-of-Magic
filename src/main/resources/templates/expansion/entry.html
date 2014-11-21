@@ -177,12 +177,19 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="panel panel-default">
+                            <div  ng-if="card.data.rulings" class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title bold">Ruling information</h3>
                                 </div>
                                 <table class="table">
-                                    <tr><td>Hellow</td><td>world</td></tr>
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Text</th>
+                                    </tr>
+                                    <tr ng-repeat="ruling in card.data.rulings">
+                                        <td class="bold" style="width: 100px;">{{::ruling.date}}</td>
+                                        <td ng-bind-html="replaceSymbols(ruling.text)"></td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

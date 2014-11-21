@@ -1,7 +1,9 @@
 package com.swords.component;
 
 import com.swords.model.Card;
+import com.swords.model.Ruling;
 import com.swords.util.JSONUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -72,6 +74,19 @@ public class CardBuilder {
 
         if (cardData.has("multiverseid")) {
             card.setMultiverseId(cardData.getInt("multiverseid"));
+        }
+
+        if (cardData.has("rulings")) {
+            JSONArray rulings = cardData.getJSONArray("rulings");
+            Ruling[] finalRulings = new Ruling[rulings.length()];
+            
+            for(int i = 0; i < rulings.length(); i++) {
+                JSONObject ruling = rulings.getJSONObject(i);
+                
+                finalRulings[i] = new Ruling(ruling.getString("date"), ruling.getString("text"));
+            }
+            
+            card.setRulings(finalRulings);
         }
 
         return card;

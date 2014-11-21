@@ -26,6 +26,7 @@ public class Card {
     private int multiverseId;
     private String imageName;
     private String expansion;
+    private Ruling[] rulings;
 
     public Card(String id) {
         this.id = id;
@@ -177,5 +178,13 @@ public class Card {
 
     public void setExpansion(String expansion) {
         this.expansion = expansion;
+    }
+
+    public Ruling[] getRulings() {
+        return rulings;
+    }
+
+    public void setRulings(Ruling[] rulings) {
+        this.rulings = rulings;
     }
 }

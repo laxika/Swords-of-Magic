@@ -22,6 +22,17 @@ public class CardRepository {
         return mongoTemplate.findById(cardId, Card.class);
     }
     
+    public Card findByMultiverseId(int multiverseId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("multiverseId").is(multiverseId));
+
+        return mongoTemplate.findOne(query, Card.class);
+    }
+    
+    public List<Card> findAll() {
+        return mongoTemplate.findAll(Card.class);
+    }
+    
     public List<Card> findByExpansionId(String expansionId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("expansion").is(expansionId));
@@ -32,5 +43,9 @@ public class CardRepository {
     public boolean exists(Query query) {
         return mongoTemplate.exists(query, Card.class);
     }
+    
+//    public List distict(String name){
+//        return mongoTemplate.getCollection(mongoTemplate.getCollectionName(Card.class)).distinct(name);
+//    }
 
 }

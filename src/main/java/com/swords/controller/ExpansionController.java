@@ -47,7 +47,7 @@ public class ExpansionController {
 
         expansionlist.stream().forEach((expansion) -> {
             ExpansionCollection expansionCollection = expansionCollectionRepository.findById(expansion.getId());
-            
+
             ExpansionItemResponse response = new ExpansionItemResponse();
 
             response.setData(expansion);
@@ -91,6 +91,7 @@ public class ExpansionController {
         resp.setCollection(expansionCollection);
 
         response.setExpansion(resp);
+        response.setPriceDivider(100);
 
         return response;
     }

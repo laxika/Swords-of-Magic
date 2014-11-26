@@ -164,6 +164,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
         templateUrl: '/expansion/entry',
         controller: function ($scope, $state, $http, $sce, dataHolder) {
             $scope.cards = {};
+            $scope.priceDivider = 1;
             $scope.expansion = [];
             $scope.search = {
                 name: ''
@@ -205,6 +206,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
             $http.get('/expansion/data/' + $state.params.expansionId).success(function (data, status, headers, config) {
                 $scope.expansion = data.expansion;
                 $scope.cards = data.cardlist;
+                $scope.priceDivider = data.priceDivider;
                 dataHolder.isLoading = false;
             });
         }

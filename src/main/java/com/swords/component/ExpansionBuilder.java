@@ -1,6 +1,7 @@
 package com.swords.component;
 
 import com.swords.model.Expansion;
+import com.swords.util.JSONUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +13,7 @@ public class ExpansionBuilder {
 
     private final SimpleDateFormat releaseDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    public Expansion buildExpansionFromJson(JSONObject expansionData) throws ParseException {
+    public Expansion buildExpansionFromJson(JSONObject expansionData, JSONObject seticonData) throws ParseException {
         Date releaseDate = releaseDateFormatter.parse(expansionData.getString("releaseDate"));
 
         Expansion expansion = new Expansion(expansionData.getString("code"));
@@ -31,6 +32,10 @@ public class ExpansionBuilder {
 
         if (expansionData.has("booster")) {
             //Todo
+        }
+        
+        if(seticonData.has(expansion.getId())) {
+            expansion.setSeticons(JSONUtils.jsonArrayToStringArray(seticonData.getJSONArray(expansion.getId())));
         }
 
         return expansion;

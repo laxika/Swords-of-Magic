@@ -51,6 +51,11 @@ public class PriceCollector {
 
                         if (edition.has("price")) {
                             Card actCard = cardRepository.findByMultiverseId(edition.getInt("multiverse_id"));
+                            
+                            if(actCard == null) {
+                                continue;
+                            }
+                            
                             int price = edition.getJSONObject("price").getInt("median");
 
                             CardCollection cardCollection = cardCollectionRepository.findByIdOrCreateIfNotExists(actCard.getId());

@@ -109,6 +109,10 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                     return item['collection'] !== null && (item['collection']['commonAmount'] != 0 || item['collection']['uncommonAmount'] || item['collection']['rareAmount'] || item['collection']['mythicAmount']);
                 };
             };
+            
+            $scope.inArray = function(target, array) {
+                return $.inArray(target, array) > -1;
+            }
 
             $scope.openExpansion = function (expansionId) {
                 $('#expansion-accordion').find('.collapse.in').collapse('hide');

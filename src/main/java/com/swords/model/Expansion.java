@@ -16,6 +16,7 @@ public class Expansion {
     private String block;
     private boolean onlineOnly;
     private String[] booster;
+    private String[] seticons;
     
     public Expansion(String id) {
         this.id = id;
@@ -83,5 +84,13 @@ public class Expansion {
     
     public String getCode() {
         return id;
+    }
+
+    public String[] getSeticons() {
+        return seticons;
+    }
+
+    public void setSeticons(String[] seticons) {
+        this.seticons = seticons;
     }
 }

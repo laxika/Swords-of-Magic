@@ -37,21 +37,24 @@ public class ExpansionLoader {
     private ExpansionBuilder expansionFactory;
 
     private final Resource carddata;
+    private final Resource seticondata;
 
     @Autowired
     public ExpansionLoader(ApplicationContext appContext) {
         carddata = appContext.getResource("classpath:/data/carddata.json");
+        seticondata = appContext.getResource("classpath:/data/setsymbols.json");
     }
 
     public void reloadExpansionData() {
         logger.info("Started loading the cards!");
 
         try {
-            JSONObject json = this.loadJsonData();
-            Iterator<?> keys = json.keys();
+            JSONObject carddataJson = this.loadJsonData();
+            JSONObject seticondataJson = this.loadSetIconJsonData();
+            Iterator<?> keys = carddataJson.keys();
 
             while (keys.hasNext()) {
-                this.loadExpansion((JSONObject) json.get((String) keys.next()));
+                this.loadExpansion((JSONObject) carddataJson.get((String) keys.next()), seticondataJson);
             }
         } catch (IOException | JSONException e) {
             logger.error(e.getMessage());
@@ -62,9 +65,13 @@ public class ExpansionLoader {
         return new JSONObject(new JSONTokener(new InputStreamReader(carddata.getInputStream())));
     }
 
-    private void loadExpansion(JSONObject expansionData) {
+    private JSONObject loadSetIconJsonData() throws MalformedURLException, IOException {
+        return new JSONObject(new JSONTokener(new InputStreamReader(seticondata.getInputStream())));
+    }
+
+    private void loadExpansion(JSONObject expansionData, JSONObject seticonData) {
         try {
-            Expansion expansion = expansionFactory.buildExpansionFromJson(expansionData);
+            Expansion expansion = expansionFactory.buildExpansionFromJson(expansionData, seticonData);
             
             this.saveExpansion(expansion);
             this.loadCardsInExpansion(expansion, expansionData.getJSONArray("cards"));

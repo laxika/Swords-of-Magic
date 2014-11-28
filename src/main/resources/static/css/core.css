@@ -85,7 +85,7 @@
 }
 
 body {
-    background-color: #dae3e7;
+    background-color: #272A2B;
 }
 
 html, body, .container {
@@ -105,6 +105,22 @@ html, body, .container {
 
 button {
     outline: none !important;
+}
+
+.panel {
+    background-color: #c6bdb1;
+}
+
+.panel-heading {
+    background-color: #BBB !important;
+}
+
+.panel-default > .panel-heading:not(.no-border) {
+    border-bottom: 1px solid #aaa;
+}
+
+.panel-collapse > .panel-body {
+    background-color: #DDD;
 }
 
 /** Loading animation **/

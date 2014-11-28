@@ -100,6 +100,11 @@ html, body, .container {
 
 .panel-shadow {
     box-shadow: 0px 0px 10px #888;
+    border: 1px solid #BBB;
+}
+
+button {
+    outline: none !important;
 }
 
 /** Loading animation **/

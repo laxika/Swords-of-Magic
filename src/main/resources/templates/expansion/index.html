@@ -6,9 +6,7 @@
                 <form role="form">
                     <div class="row">
                         <div class="col-md-3">
-                            <fieldset style="border: 1px solid #decda0;
-background: #efe7d2;
-margin-bottom: 10px;"  data-bitmask-name="filter-rarity" data-bitmask="0">
+                            <fieldset class="fieldset-normal" data-bitmask-name="filter-rarity" data-bitmask="0">
                                 <legend style="font-size: 14px;
 font-weight: bold;
 width: auto;
@@ -62,7 +60,7 @@ list-style-image: none;padding-top: 5px;padding-bottom: 5px;">
                         </tr>
                     </thead>
                     <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard() | filter:isWithCards()" style="border: 1px solid #decda0;">
-                        <tr style="height: 52px;background: #ece3ca;">
+                        <tr style="height: 52px;background: rgba(1,1,1,0.05);">
                             <td class="text-middle">
                                 <img ng-if="inArray('r',expansion.data.seticons)" class="img-thumbnail expansion-set-icon" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg" alt="{{expansion.data.name}} Icon" /> {{expansion.data.name}}
                             </td>
@@ -79,9 +77,9 @@ list-style-image: none;padding-top: 5px;padding-bottom: 5px;">
                                 </button>
                             </td>
                         </tr>
-                        <tr id="{{expansion.data.id}}" class="panel-collapse collapse">
-                            <td colspan="3">
-                                <div class="row">
+                        <tr class="expansion-row">
+                            <td colspan="3" style="padding: 0;">
+                                <div id="{{expansion.data.id}}" class="row panel-collapse collapse">
                                     <div class="col-md-12">
                                         <div class="panel panel-default panel-inner">
                                             <div class="panel-heading">
@@ -120,7 +118,7 @@ list-style-image: none;padding-top: 5px;padding-bottom: 5px;">
                                                     <td class="bold">Border:</td><td>{{expansion.data.border| capitalize}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="bold" ng-if="expansion.data.block">Block:</td><td>{{expansion.data.block}}</td>
+                                                    <td class="bold" ng-if="expansion.data.block">Block:</td><td ng-if="expansion.data.block">{{expansion.data.block}}</td>
                                                     <td class="bold" ng-if="!expansion.data.block">Block:</td><td ng-if="!expansion.data.block">Not in block</td>
                                                     <td class="bold">Online only:</td><td>{{expansion.data.onlineOnly.toString() | capitalize}}</td>
                                                 </tr>

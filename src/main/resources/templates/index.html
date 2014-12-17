@@ -8,9 +8,9 @@
 
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="/css/core.css" rel="stylesheet" media="screen"/>
-        
+
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'/>
-        
+
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.js"></script>
@@ -18,18 +18,38 @@
         <script src="/js/core.js"></script>
     </head>
     <body ng-controller="MainController">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Swords of Magic <small style="font-size: 65%; color: white;">v 0.01</small></a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search" />
+                        </div>
+                    </form>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-repeat="button in buttons"><a href="#" data-ui-sref="{{button.sref}}" data-ui-sref-active="active">{{button.title}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container">
             <div class="page-wrap">
-                <div class="row">
+                <div class="row" style="margin-top: 50px;">
                     <div class="col-md-12 text-right">
                         <div style="border-top-right-radius: 0; border-top-left-radius: 0;" class="panel panel-default panel-shadow">
                             <div class="panel-body">
-                                <img style="border: solid 1px; box-shadow: 0px 0px 5px #000;" src="/img/title.jpg" alt="Site logo" />
-                            </div>
-                        </div>
-                        <div id="menu" class="panel panel-default panel-shadow">
-                            <div class="panel-body">
-                                <button type="button" class="btn btn-default" ng-repeat="button in buttons" data-ui-sref="{{button.sref}}" data-ui-sref-active="active">{{button.title}}</button>
+                                <img class="img-responsive" style="border: solid 1px; box-shadow: 0px 0px 5px #000;" src="/img/title.jpg" alt="Site logo" />
                             </div>
                         </div>
                     </div>

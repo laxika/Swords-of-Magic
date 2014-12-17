@@ -153,3 +153,51 @@ button {
 }
 
 /** Input **/
+
+.fieldset-normal {
+    border: 1px solid #decda0;
+    background: #efe7d2;
+    margin-bottom: 10px;
+}
+
+.fieldset-normal legend {
+    font-size: 14px;
+    font-weight: bold;
+    width: auto;
+    margin-left: 10px;margin-bottom: 0;
+}
+
+.fieldset-normal ul {
+    list-style: none;
+    list-style-image: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.btn-default {
+    box-shadow: inset 0 1px 0 #9b413f;
+    background: -webkit-linear-gradient(top,#851e1b,#6e1a16);
+    background: linear-gradient(to bottom,#851e1b,#6e1a16);
+    border: 1px solid #56120f;
+    color: #fff!important;
+}
+
+.table>thead>tr>th {
+    border-bottom: none;
+}
+
+.table>tbody>tr>td {
+    border-top: none;
+}
+
+.panel-collapse.collapse.in, .panel-collapse.collapsing {
+    border-top: 1px solid #aaa;
+}
+
+.panel-inner {
+    border: 1px solid rgba(0,0,0,0.4);
+}
+
+.panel-collapse .panel > .panel-body {
+    background-color: #fff;
+}

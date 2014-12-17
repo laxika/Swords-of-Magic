@@ -6,28 +6,42 @@
                 <form role="form">
                     <div class="row">
                         <div class="col-md-3">
-                            <h5 class="text-center bold">Legality</h5>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" ng-model="search.standard"/> is standard
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" ng-model="search.modern"/> is modern
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" ng-model="search.onlyWithCards"/> have cards in collection
-                                </label>
-                            </div>
+                            <fieldset style="border: 1px solid #decda0;
+background: #efe7d2;
+margin-bottom: 10px;"  data-bitmask-name="filter-rarity" data-bitmask="0">
+                                <legend style="font-size: 14px;
+font-weight: bold;
+width: auto;
+margin-left: 10px;margin-bottom: 0;">Legality</legend>
+                                <ul style="list-style: none;
+list-style-image: none;padding-top: 5px;padding-bottom: 5px;">
+                                    <li>
+                                        <input type="checkbox" ng-model="search.standard" id="is-standard" />
+                                        <label for="is-standard">is standard</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" ng-model="search.modern" id="is-modern" />
+                                        <label for="is-modern">is modern</label>
+                                    </li>
+                                </ul>
+                            </fieldset>
+                            <fieldset class="fieldset-normal"  data-bitmask-name="filter-rarity" data-bitmask="0">
+                                <legend>Others</legend>
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" ng-model="search.onlyWithCards" id="only-with-cards" />
+                                        <label for="only-with-cards">only with cards</label>
+                                    </li>
+                                </ul>
+                            </fieldset>
                         </div>
                         <div class="col-md-9">
-                            <h5 class="text-center bold">Expansion name</h5>
-                            <div class="form-group">
-                                <input type="text" class="form-control" ng-model="search.name" />
-                            </div>
+                            <fieldset class="fieldset-normal"  data-bitmask-name="filter-rarity" data-bitmask="0">
+                                <legend>Expansion name</legend>
+                                <div style="margin: 10px;">
+                                    <input style="width:100%" type="text" class="form-control" ng-model="search.name" />
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                 </form>
@@ -47,8 +61,8 @@
                             <th style="width: 20%;" class="text-center">Options</th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard() | filter:isWithCards()">
-                        <tr style="height: 52px;">
+                    <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard() | filter:isWithCards()" style="border: 1px solid #decda0;">
+                        <tr style="height: 52px;background: #ece3ca;">
                             <td class="text-middle">
                                 <img ng-if="inArray('r',expansion.data.seticons)" class="img-thumbnail expansion-set-icon" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg" alt="{{expansion.data.name}} Icon" /> {{expansion.data.name}}
                             </td>
@@ -68,11 +82,8 @@
                         <tr id="{{expansion.data.id}}" class="panel-collapse collapse">
                             <td colspan="3">
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <img class="img-responsive img-thumbnail expansion-set-tumbnail" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg"  alt="{{expansion.data.name}} Icon"/>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div class="panel panel-default">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default panel-inner">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title bold">Collection information</h3>
                                             </div>
@@ -91,11 +102,12 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <div class="panel panel-default">
+                                        <div class="panel panel-default panel-inner">
                                             <div class="panel-heading">
                                                 <h3 class="panel-title bold">General information</h3>
                                             </div>
                                             <div class="panel-body">
+                                                <img style="float:left;margin-right: 18px;" ng-if="inArray('r',expansion.data.seticons)" class="img-responsive img-thumbnail expansion-set-tumbnail" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg"  alt="{{expansion.data.name}} Icon"/>
                                                 <p>Release info will come here</p>
                                             </div>
                                             <table class="table" >

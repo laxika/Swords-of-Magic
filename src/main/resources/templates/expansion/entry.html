@@ -32,7 +32,9 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <img class="img-responsive card-image" src="http://mtgimage.com/set/{{::card.data.expansion}}/{{::card.data.imageName}}.hq.jpg" alt="{{::card.data.name}} Image" />
+                            <a href="http://mtgimage.com/set/{{::card.data.expansion}}/{{::card.data.imageName}}.hq.jpg" class="highslide" onclick="return hs.expand(this)">
+                                <img class="img-responsive card-image" src="http://mtgimage.com/set/{{::card.data.expansion}}/{{::card.data.imageName}}.hq.jpg" alt="{{::card.data.name}} Image" />
+                            </a>
                         </div>
                         <div class="col-md-9">
                             <div class="panel panel-default panel-inner">

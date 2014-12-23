@@ -24,7 +24,7 @@
         <div style="text-align: center;" data-loading="">
             <span style="font-size: 5em" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
         </div>
-        <div class="panel panel-default" ng-repeat="card in cards| filter:{data: { name: search.name}}">
+        <div class="panel panel-default panel-inner" ng-repeat="card in cards| filter:{data: { name: search.name}}">
             <div class="panel-heading no-border">
                 <h4 class="cursor-link panel-title" ng-click="openCard(card.data.multiverseId)">{{card.data.name}}</h4>
             </div>
@@ -35,7 +35,7 @@
                             <img class="img-responsive card-image" src="http://mtgimage.com/set/{{::card.data.expansion}}/{{::card.data.imageName}}.hq.jpg" alt="{{::card.data.name}} Image" />
                         </div>
                         <div class="col-md-9">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-inner">
                                 <div class="panel-heading">
                                     <h3 class="panel-title bold">Collection information</h3>
                                 </div>
@@ -129,7 +129,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="panel panel-default">
+                            <div class="panel panel-default panel-inner">
                                 <div class="panel-heading">
                                     <h3 class="panel-title bold">General information</h3>
                                 </div>
@@ -177,7 +177,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div  ng-if="card.data.rulings" class="panel panel-default">
+                            <div  ng-if="card.data.rulings" class="panel panel-default panel-inner">
                                 <div class="panel-heading">
                                     <h3 class="panel-title bold">Ruling information</h3>
                                 </div>

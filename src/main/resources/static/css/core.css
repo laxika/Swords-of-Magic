@@ -56,6 +56,8 @@ nav.navbar {
     height: 40px;
     margin-top: -6px;
     margin-bottom: -6px;
+    background: #D9D1BA;
+    border: 1px solid rgba(0,0,0,0.4);
 }
 
 .expansion-set-tumbnail {
@@ -63,7 +65,9 @@ nav.navbar {
     min-width: 128px;
     min-height: 128px;
     max-height: 128px;
-    background-color: #EEEEEE;
+    background-color: #D9D1BA;
+    border: 1px solid rgba(0,0,0,0.4);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 
 .bold {
@@ -225,6 +229,33 @@ button {
     background-color: #F2E9D0;
 }
 
-.panel-body + table {
-    background-color: #F2E9D0;
+.panel-inner .panel-body + table, .panel-inner .panel-heading + table {
+    background-color: #fff6dd;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+    border-color: rgba(0,0,0,0.3);
+    box-shadow: 0 0 5px #c0af82;
+    outline: 0 none;
+}
+
+/** Card accordion **/
+
+#card-accordion .panel-collapse .panel-body {
+    background-color: #E1D7BD;
 }

@@ -29,14 +29,13 @@
                     </button>
                     <a class="navbar-brand" href="#">Swords of Magic <small style="font-size: 65%; color: white;">v 0.01</small></a>
                 </div>
-
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
+                        <div class="form-group has-feedback">
                             <input type="text" class="form-control" placeholder="Search" />
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
                         </div>
                     </form>
-                    
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-repeat="button in buttons"><a href="#" data-ui-sref="{{button.sref}}" data-ui-sref-active="active">{{button.title}}</a></li>
                     </ul>
@@ -45,7 +44,7 @@
         </nav>
         <div class="container">
             <div class="page-wrap">
-                <div class="row" style="margin-top: 50px;">
+                <div class="row" style="margin-top: 34px;">
                     <div class="col-md-12 text-right">
                         <div style="border-top-right-radius: 0; border-top-left-radius: 0;" class="panel panel-default panel-shadow">
                             <div class="panel-body">

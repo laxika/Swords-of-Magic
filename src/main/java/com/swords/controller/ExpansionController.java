@@ -46,7 +46,7 @@ public class ExpansionController {
         ExpansionIndexResponse indexResponse = new ExpansionIndexResponse();
 
         expansionlist.stream().forEach((expansion) -> {
-            ExpansionCollection expansionCollection = expansionCollectionRepository.findById(expansion.getId());
+            ExpansionCollection expansionCollection = expansionCollectionRepository.findByIdOrCreateIfNotExists(expansion.getId());
 
             ExpansionItemResponse response = new ExpansionItemResponse();
 

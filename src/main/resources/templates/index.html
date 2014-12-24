@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="swords">
     <head>
-        <title th:text="#{index.welcome}">Swords and Sorcery alpha v0.01</title>
+        <title th:text="#{index.title}">Swords and Sorcery alpha v0.01</title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -83,7 +83,7 @@
                     <div class="col-md-12 text-right" style="height: 50px;">
                         <div style="border-bottom-right-radius: 0; border-bottom-left-radius: 0;margin-bottom: 0; height: 100%;" class="panel panel-default panel-shadow">
                             <div class="panel-body text-center">
-                                Created with <a href="https://github.com/laxika/Swords-of-Magic">Swords of Magic</a>.
+                                <span th:text="#{index.created.start}">Created with</span> <a href="https://github.com/laxika/Swords-of-Magic">Swords of Magic</a> <span th:text="#{index.created.end}">.</span>
                             </div>
                         </div>
                     </div>

@@ -1,15 +1,13 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default panel-shadow">
-            <div class="panel-heading panel-heading-extended">
-                Search
-            </div>
+            <div class="panel-heading panel-heading-extended" th:text="#{expansion.entry.search}">Search</div>
             <div class="panel-body">
                 <form role="form">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="cardName">Card name:</label>
+                                <label for="cardName" th:text="#{expansion.entry.card_name}">Card name:</label>
                                 <input type="text" class="form-control" id="cardName" ng-model="search.name" />
                             </div>
                         </div>
@@ -39,93 +37,93 @@
                         <div class="col-md-9">
                             <div class="panel panel-default panel-inner">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title bold">Collection information</h3>
+                                    <h3 class="panel-title bold" th:text="#{expansion.entry.collection_information}">Collection information</h3>
                                 </div>
                                 <table class="table" ng-if="!$parent.loggedIn">
                                     <tr>
-                                        <th>Type</th>
-                                        <th>Amount</th>
-                                        <th>Price</th>
+                                        <th th:text="#{expansion.entry.type}">Type</th>
+                                        <th th:text="#{expansion.entry.amount}">Amount</th>
+                                        <th th:text="#{expansion.entry.price}">Price</th>
                                     </tr>
                                     <tr ng-if="card.collection.mintAmount">
-                                        <td>Mint:</td>
+                                        <td th:text="#{expansion.entry.mint}">Mint:</td>
                                         <td>{{::card.collection.mintAmount}}</td>
                                         <td>{{card.collection.mintPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.nearMintAmount">
-                                        <td>Near Mint:</td>
+                                        <td th:text="#{expansion.entry.near_mint}">Near Mint:</td>
                                         <td>{{::card.collection.nearMintAmount}}</td>
                                         <td>{{card.collection.nearMintPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.slightlyPlayedAmount">
-                                        <td>Slightly played:</td>
+                                        <td th:text="#{expansion.entry.slightly_played}">Slightly played:</td>
                                         <td>{{::card.collection.slightlyPlayedAmount}}</td>
                                         <td>{{card.collection.slightlyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.moderatelyPlayedAmount">
-                                        <td>Moderately played:</td>
+                                        <td th:text="#{expansion.entry.moderately_played}">Moderately played:</td>
                                         <td>{{::card.collection.moderatelyPlayedAmount}}</td>
                                         <td>{{card.collection.moderatelyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.heavilyPlayedAmount">
-                                        <td>Heavily played:</td>
+                                        <td th:text="#{expansion.entry.heavily_played}">Heavily played:</td>
                                         <td>{{::card.collection.heavilyPlayedAmount}}</td>
                                         <td>{{card.collection.heavilyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.onlineAmount">
-                                        <td>Online (MTGO/MODO):</td>
+                                        <td th:text="#{expansion.entry.online}">Online (MTGO/MODO):</td>
                                         <td>{{::card.collection.onlineAmount}}</td>
                                         <td>{{card.collection.onlinePrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.foilAmount">
-                                        <td>Foil:</td>
+                                        <td th:text="#{expansion.entry.foil}">Foil:</td>
                                         <td>{{::card.collection.foilAmount}}</td>
                                         <td>{{card.collection.foilPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="!card.collection.foilAmount &amp;&amp; !card.collection.onlineAmount &amp;&amp; !card.collection.heavilyPlayedAmount &amp;&amp;
                                     !card.collection.moderatelyPlayedAmount &amp;&amp; !card.collection.slightlyPlayedAmount &amp;&amp; !card.collection.nearMintAmount
                                             &amp;&amp; !card.collection.mintAmount">
-                                        <td colspan="3" class="text-center"><i>Not found in the collection!</i></td>
+                                        <td colspan="3" class="text-center"><i th:text="#{expansion.entry.not_in_collection}">Not found in the collection!</i></td>
                                     </tr>
                                 </table>
                                 <table class="table" ng-if="$parent.loggedIn">
                                     <tr>
-                                        <th>Type</th>
-                                        <th>Amount</th>
-                                        <th>Price</th>
+                                        <th th:text="#{expansion.entry.type}">Type</th>
+                                        <th th:text="#{expansion.entry.amount}">Amount</th>
+                                        <th th:text="#{expansion.entry.price}">Price</th>
                                     </tr>
                                     <tr>
-                                        <td>Mint:</td>
+                                        <td th:text="#{expansion.entry.mint}">Mint:</td>
                                         <td><input type="number" ng-model="card.collection.mintAmount" ng-change="sendUpdate($index, 'mintAmount')" integer=""/></td>
                                         <td>{{::card.collection.mintPrice / priceDivider}} $</td>
                                     </tr>
                                     <tr>
-                                        <td>Near Mint:</td>
+                                        <td th:text="#{expansion.entry.near_mint}">Near Mint:</td>
                                         <td><input type="number" ng-model="card.collection.nearMintAmount" ng-change="sendUpdate($index, 'nearMintAmount')" integer=""/></td>
                                         <td>{{::card.collection.nearMintPrice / priceDivider}} $</td>
                                     </tr>
                                     <tr>
-                                        <td>Slightly played:</td>
+                                        <td th:text="#{expansion.entry.slightly_played}">Slightly played:</td>
                                         <td><input type="number" ng-model="card.collection.slightlyPlayedAmount" ng-change="sendUpdate($index, 'slightlyPlayedAmount')" integer=""/></td>
                                         <td>{{::card.collection.slightlyPlayedPrice / priceDivider}} $</td>
                                     </tr>
                                     <tr>
-                                        <td>Moderately played:</td>
+                                        <td th:text="#{expansion.entry.moderately_played}">Moderately played:</td>
                                         <td><input type="number" ng-model="card.collection.moderatelyPlayedAmount" ng-change="sendUpdate($index, 'moderatelyPlayedAmount')" integer=""/></td>
                                         <td>{{::card.collection.moderatelyPlayedPrice / priceDivider}} $</td>
                                     </tr>
                                     <tr>
-                                        <td>Heavily played:</td>
+                                        <td th:text="#{expansion.entry.heavily_played}">Heavily played:</td>
                                         <td><input type="number" ng-model="card.collection.heavilyPlayedAmount" ng-change="sendUpdate($index, 'heavilyPlayedAmount')" integer=""/></td>
                                         <td>{{::card.collection.heavilyPlayedPrice / priceDivider}} $</td>
                                     </tr>
                                     <tr>
-                                        <td>Online (MTGO/MODO):</td>
+                                        <td th:text="#{expansion.entry.online}">Online (MTGO/MODO):</td>
                                         <td><input type="number" ng-model="card.collection.onlineAmount" ng-change="sendUpdate($index, 'onlineAmount')" integer=""/></td>
                                         <td>{{::card.collection.onlinePrice / priceDivider}} $</td>
                                     </tr>
                                     <tr>
-                                        <td>Foil:</td>
+                                        <td th:text="#{expansion.entry.foil}">Foil:</td>
                                         <td><input type="number" ng-model="card.collection.foilAmount" ng-change="sendUpdate($index, 'foilAmount')" integer=""/></td>
                                         <td>{{::card.collection.foilPrice / priceDivider}} $</td>
                                     </tr>
@@ -133,7 +131,7 @@
                             </div>
                             <div class="panel panel-default panel-inner">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title bold">General information</h3>
+                                    <h3 class="panel-title bold" th:text="#{expansion.entry.general_information}">General information</h3>
                                 </div>
                                 <div class="panel-body">
                                     <p ng-bind-html="replaceSymbols(card.data.text)"></p>
@@ -141,38 +139,38 @@
                                 </div>
                                 <table class="table" >
                                     <tr>
-                                        <td class="bold" ng-if="card.data.number" style="width: 25%;">Name:</td>
+                                        <td class="bold" ng-if="card.data.number" style="width: 25%;" th:text="#{expansion.entry.name}">Name:</td>
                                         <td ng-if="card.data.number">{{::card.data.name}} (#{{::card.data.number}})</td>
 
-                                        <td class="bold" ng-if="!card.data.number" style="width: 25%;">Name:</td>
+                                        <td class="bold" ng-if="!card.data.number" style="width: 25%;" th:text="#{expansion.entry.name}">Name:</td>
                                         <td ng-if="!card.data.number">{{::card.data.name}}</td>
 
-                                        <td class="bold">Manacost:</td>
+                                        <td class="bold" th:text="#{expansion.entry.manacost}">Manacost:</td>
                                         <td ng-bind-html="replaceSymbols(card.data.manacost +   ' - ({' +   card.data.cmc +   '})')"></td>
                                     </tr>
                                     <tr>
-                                        <td class="bold" ng-if="card.data.color">Color</td>
+                                        <td class="bold" ng-if="card.data.color" th:text="#{expansion.entry.color}">Color</td>
                                         <td ng-if="card.data.color">{{::card.data.color.join(', ')}}</td>
 
-                                        <td class="bold" ng-if="!card.data.color">Color</td>
+                                        <td class="bold" ng-if="!card.data.color" th:text="#{expansion.entry.color}">Color</td>
                                         <td ng-if="!card.data.color">Colorless</td>
 
-                                        <td class="bold" ng-if="card.data.subtypes">Type:</td>
+                                        <td class="bold" ng-if="card.data.subtypes" th:text="#{expansion.entry.type_extra}">Type:</td>
                                         <td ng-if="card.data.subtypes">{{::card.data.supertypes.join(', ')}} {{::card.data.types.join(' ')}} — {{::card.data.subtypes.join(' ')}}</td>
 
-                                        <td class="bold" ng-if="!card.data.subtypes">Type:</td>
+                                        <td class="bold" ng-if="!card.data.subtypes" th:text="#{expansion.entry.type_extra}">Type:</td>
                                         <td ng-if="!card.data.subtypes">{{::card.data.supertypes.join(', ')}} {{::card.data.types.join(' ')}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="bold">Rarity:</td><td>{{::card.data.rarity}}</td>
-                                        <td class="bold">Artist:</td><td>{{::card.data.artist}}</td>
+                                        <td class="bold" th:text="#{expansion.entry.rarity}">Rarity:</td><td>{{::card.data.rarity}}</td>
+                                        <td class="bold" th:text="#{expansion.entry.artist}">Artist:</td><td>{{::card.data.artist}}</td>
                                     </tr>
                                     <tr ng-if="card.data.power">
-                                        <td class="bold">Power:</td><td>{{::card.data.power}}</td>
-                                        <td class="bold">Toughness:</td><td>{{::card.data.toughness}}</td>
+                                        <td class="bold" th:text="#{expansion.entry.power}">Power:</td><td>{{::card.data.power}}</td>
+                                        <td class="bold" th:text="#{expansion.entry.toughness}">Toughness:</td><td>{{::card.data.toughness}}</td>
                                     </tr>
                                     <tr ng-if="card.data.layout">
-                                        <td class="bold">Layout</td>
+                                        <td class="bold" th:text="#{expansion.entry.layout}">Layout</td>
                                         <td>{{::card.data.layout}}</td>
                                         <td></td>
                                         <td></td>
@@ -181,12 +179,12 @@
                             </div>
                             <div  ng-if="card.data.rulings" class="panel panel-default panel-inner">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title bold">Ruling information</h3>
+                                    <h3 class="panel-title bold" th:text="#{expansion.entry.ruling_information}">Ruling information</h3>
                                 </div>
                                 <table class="table">
                                     <tr>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Text</th>
+                                        <th class="text-center" th:text="#{expansion.entry.date}">Date</th>
+                                        <th class="text-center" th:text="#{expansion.entry.text}">Text</th>
                                     </tr>
                                     <tr ng-repeat="ruling in card.data.rulings">
                                         <td class="bold" style="width: 100px;">{{::ruling.date}}</td>

@@ -267,3 +267,12 @@ input[type="color"]:focus,
     background-color: black;
     border-radius: 5px;
 }
+
+/** Flags **/
+
+.flag-holder {
+    position: absolute;
+    width: 100px;
+    margin-left: -110px;
+    margin-top: 5px;
+}

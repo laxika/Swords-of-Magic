@@ -50,37 +50,37 @@
                                     <tr ng-if="card.collection.mintAmount">
                                         <td>Mint:</td>
                                         <td>{{::card.collection.mintAmount}}</td>
-                                        <td>{{card.collection.mintPrice / priceDivider}} $</td>
+                                        <td>{{card.collection.mintPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.nearMintAmount">
                                         <td>Near Mint:</td>
                                         <td>{{::card.collection.nearMintAmount}}</td>
-                                        <td>{{card.collection.nearMintPrice / priceDivider}} $</td>
+                                        <td>{{card.collection.nearMintPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.slightlyPlayedAmount">
                                         <td>Slightly played:</td>
                                         <td>{{::card.collection.slightlyPlayedAmount}}</td>
-                                        <td>{{card.collection.slightlyPlayedPrice / priceDivider}} $</td>
+                                        <td>{{card.collection.slightlyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.moderatelyPlayedAmount">
                                         <td>Moderately played:</td>
                                         <td>{{::card.collection.moderatelyPlayedAmount}}</td>
-                                        <td>{{card.collection.moderatelyPlayedPrice / priceDivider}} $</td>
+                                        <td>{{card.collection.moderatelyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.heavilyPlayedAmount">
                                         <td>Heavily played:</td>
                                         <td>{{::card.collection.heavilyPlayedAmount}}</td>
-                                        <td>{{card.collection.heavilyPlayedPrice / priceDivider}} $</td>
+                                        <td>{{card.collection.heavilyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.onlineAmount">
                                         <td>Online (MTGO/MODO):</td>
                                         <td>{{::card.collection.onlineAmount}}</td>
-                                        <td>{{card.collection.onlinePrice / priceDivider}} $</td>
+                                        <td>{{card.collection.onlinePrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="card.collection.foilAmount">
                                         <td>Foil:</td>
                                         <td>{{::card.collection.foilAmount}}</td>
-                                        <td>{{card.collection.foilPrice / priceDivider}} $</td>
+                                        <td>{{card.collection.foilPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr ng-if="!card.collection.foilAmount &amp;&amp; !card.collection.onlineAmount &amp;&amp; !card.collection.heavilyPlayedAmount &amp;&amp;
                                     !card.collection.moderatelyPlayedAmount &amp;&amp; !card.collection.slightlyPlayedAmount &amp;&amp; !card.collection.nearMintAmount

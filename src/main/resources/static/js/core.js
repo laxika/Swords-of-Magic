@@ -169,6 +169,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
         controller: function ($scope, $state, $http, $sce, dataHolder) {
             $scope.cards = {};
             $scope.priceDivider = 1;
+            $scope.priceUnit = '$';
             $scope.expansion = [];
             $scope.search = {
                 name: ''
@@ -211,6 +212,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 $scope.expansion = data.expansion;
                 $scope.cards = data.cardlist;
                 $scope.priceDivider = data.priceDivider;
+                $scope.priceUnit = data.priceUnit;
                 dataHolder.isLoading = false;
             });
         }

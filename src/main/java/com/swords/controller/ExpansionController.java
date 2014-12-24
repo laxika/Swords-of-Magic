@@ -15,6 +15,7 @@ import com.swords.model.repository.ExpansionCollectionRepository;
 import com.swords.model.repository.ExpansionRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,10 @@ public class ExpansionController {
     private CardCollectionRepository collectionRepository;
     @Autowired
     private ExpansionCollectionRepository expansionCollectionRepository;
+    @Value("${swords.price.divider}")
+    private int priceDivider;
+    @Value("${swords.price.unit}")
+    private String priceUnit;
 
     @RequestMapping("/expansion/index")
     public String expansionIndexTemplate() {
@@ -91,7 +96,8 @@ public class ExpansionController {
         resp.setCollection(expansionCollection);
 
         response.setExpansion(resp);
-        response.setPriceDivider(100);
+        response.setPriceDivider(priceDivider);
+        response.setPriceUnit(priceUnit);
 
         return response;
     }

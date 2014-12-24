@@ -29,54 +29,61 @@ public class PriceCollector {
     public void process() {
         System.out.println("Downloading pricing data!");
 
-        //TODO: refactor this!
         try {
             int counter = 0;
-            boolean shouldRun = true;
+            JSONArray cards;
 
-            while (shouldRun) {
-                JSONArray cards = JSONUtils.readJsonArrayFromUrl("https://api.deckbrew.com/mtg/cards?page=" + counter);
+            do {
+                cards = JSONUtils.readJsonArrayFromUrl("https://api.deckbrew.com/mtg/cards?page=" + counter);
 
-                if (cards.length() == 0) {
-                    shouldRun = false;
-                }
-
-                for (int i = 0; i < cards.length(); i++) {
-                    JSONObject card = cards.getJSONObject(i);
-
-                    JSONArray editions = card.getJSONArray("editions");
-
-                    for (int j = 0; j < editions.length(); j++) {
-                        JSONObject edition = editions.getJSONObject(j);
-
-                        if (edition.has("price")) {
-                            Card actCard = cardRepository.findByMultiverseId(edition.getInt("multiverse_id"));
-                            
-                            if(actCard == null) {
-                                continue;
-                            }
-                            
-                            int price = edition.getJSONObject("price").getInt("median");
-
-                            CardCollection cardCollection = cardCollectionRepository.findByIdOrCreateIfNotExists(actCard.getId());
-                            cardCollection.setFoilPrice(price * 2);
-                            cardCollection.setMintPrice(price);
-                            cardCollection.setNearMintPrice(price);
-                            cardCollection.setSlightlyPlayedPrice(price);
-                            cardCollection.setModeratelyPlayedPrice(price);
-                            cardCollection.setHeavilyPlayedPrice(price);
-
-                            cardCollectionRepository.save(cardCollection);
-
-                            System.out.println("Set new price: " + price + " for card: " + actCard.getName() + " [" + actCard.getExpansion() + "]");
-                        }
-                    }
-                }
+                this.processCards(cards);
 
                 counter++;
-            }
+            } while (cards.length() != 0);
         } catch (IOException | JSONException ex) {
             Logger.getLogger(PriceCollector.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void processCards(JSONArray cards) {
+        for (int i = 0; i < cards.length(); i++) {
+            JSONObject card = cards.getJSONObject(i);
+
+            this.processEditions(card.getJSONArray("editions"));
+        }
+    }
+
+    private void processEditions(JSONArray editions) {
+        for (int j = 0; j < editions.length(); j++) {
+            JSONObject edition = editions.getJSONObject(j);
+
+            if (edition.has("price")) {
+                Card actCard = cardRepository.findByMultiverseId(edition.getInt("multiverse_id"));
+
+                if(actCard == null) {
+                    continue;
+                }
+
+                CardCollection cardCollection = this.parseCardPricing(edition, actCard);
+
+                cardCollectionRepository.save(cardCollection);
+
+                System.out.println("Set new price: " + cardCollection.getMintPrice() + " for card: " + actCard.getName() + " [" + actCard.getExpansion() + "]");
+            }
+        }
+    }
+
+    private CardCollection parseCardPricing(JSONObject edition, Card actCard) {
+        int price = edition.getJSONObject("price").getInt("median");
+
+        CardCollection cardCollection = cardCollectionRepository.findByIdOrCreateIfNotExists(actCard.getId());
+        cardCollection.setFoilPrice(price * 2);
+        cardCollection.setMintPrice(price);
+        cardCollection.setNearMintPrice(price);
+        cardCollection.setSlightlyPlayedPrice(price);
+        cardCollection.setModeratelyPlayedPrice(price);
+        cardCollection.setHeavilyPlayedPrice(price);
+
+        return cardCollection;
     }
 }

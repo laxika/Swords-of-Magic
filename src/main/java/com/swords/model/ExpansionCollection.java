@@ -58,7 +58,7 @@ public class ExpansionCollection {
                 return this.getUncommonAmount();
             case RarityConstant.RARE:
                 return this.getRareAmount();
-            case RarityConstant.MYTHIC:
+            case RarityConstant.MYTHIC_RARE:
                 return this.getMythicAmount();
         }
 
@@ -76,7 +76,7 @@ public class ExpansionCollection {
             case RarityConstant.RARE:
                 this.setRareAmount(value);
                 break;
-            case RarityConstant.MYTHIC:
+            case RarityConstant.MYTHIC_RARE:
                 this.setMythicAmount(value);
                 break;
             default:

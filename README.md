@@ -4,7 +4,9 @@ Swords of Magic is a Magic: the Gathering card collection database organizer. It
 
 #### History ####
 
-The project is created purely to learn Spring and AngularJS but ended up being good enough to release itas an open-source software.
+The project is created purely to learn Spring and AngularJS but ended up being good enough to release it as an open-source software. Tha name comes from the famous Swords cycle in the Scars of Mirrodin block.
+
+http://archive.wizards.com/Magic/magazine/article.aspx?x=mtg/daily/arcana/631
 
 #### Demo ####
 

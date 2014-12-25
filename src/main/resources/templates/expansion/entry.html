@@ -95,37 +95,37 @@
                                     <tr>
                                         <td th:text="#{expansion.entry.mint}">Mint:</td>
                                         <td><input type="number" ng-model="card.collection.mintAmount" ng-change="sendUpdate($index, 'mintAmount')" integer=""/></td>
-                                        <td>{{::card.collection.mintPrice / priceDivider}} $</td>
+                                        <td>{{::card.collection.mintPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.near_mint}">Near Mint:</td>
                                         <td><input type="number" ng-model="card.collection.nearMintAmount" ng-change="sendUpdate($index, 'nearMintAmount')" integer=""/></td>
-                                        <td>{{::card.collection.nearMintPrice / priceDivider}} $</td>
+                                        <td>{{::card.collection.nearMintPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.slightly_played}">Slightly played:</td>
                                         <td><input type="number" ng-model="card.collection.slightlyPlayedAmount" ng-change="sendUpdate($index, 'slightlyPlayedAmount')" integer=""/></td>
-                                        <td>{{::card.collection.slightlyPlayedPrice / priceDivider}} $</td>
+                                        <td>{{::card.collection.slightlyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.moderately_played}">Moderately played:</td>
                                         <td><input type="number" ng-model="card.collection.moderatelyPlayedAmount" ng-change="sendUpdate($index, 'moderatelyPlayedAmount')" integer=""/></td>
-                                        <td>{{::card.collection.moderatelyPlayedPrice / priceDivider}} $</td>
+                                        <td>{{::card.collection.moderatelyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.heavily_played}">Heavily played:</td>
                                         <td><input type="number" ng-model="card.collection.heavilyPlayedAmount" ng-change="sendUpdate($index, 'heavilyPlayedAmount')" integer=""/></td>
-                                        <td>{{::card.collection.heavilyPlayedPrice / priceDivider}} $</td>
+                                        <td>{{::card.collection.heavilyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.online}">Online (MTGO/MODO):</td>
                                         <td><input type="number" ng-model="card.collection.onlineAmount" ng-change="sendUpdate($index, 'onlineAmount')" integer=""/></td>
-                                        <td>{{::card.collection.onlinePrice / priceDivider}} $</td>
+                                        <td>{{::card.collection.onlinePrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.foil}">Foil:</td>
                                         <td><input type="number" ng-model="card.collection.foilAmount" ng-change="sendUpdate($index, 'foilAmount')" integer=""/></td>
-                                        <td>{{::card.collection.foilPrice / priceDivider}} $</td>
+                                        <td>{{::card.collection.foilPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                 </table>
                             </div>

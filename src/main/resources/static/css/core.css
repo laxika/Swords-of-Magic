@@ -125,9 +125,13 @@ html, body, .container {
     font-size: 16px;
 }
 
-.panel-shadow {
+.panel-shadow, .bg-danger {
     border: 1px solid rgba(0,0,0,0.2);
     box-shadow: 3px 3px 1px rgba(0,0,0,0.2);
+}
+
+.bg-danger {
+    border-radius: 4px;
 }
 
 button {

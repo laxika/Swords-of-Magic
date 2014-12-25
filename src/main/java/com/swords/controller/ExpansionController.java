@@ -34,7 +34,7 @@ public class ExpansionController {
     @Autowired
     private ExpansionCollectionRepository expansionCollectionRepository;
     @Value("${swords.price.divider}")
-    private int priceDivider;
+    private double priceDivider;
     @Value("${swords.price.unit}")
     private String priceUnit;
 

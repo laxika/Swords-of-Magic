@@ -7,7 +7,7 @@ public class ExpansionEntryResponse {
 
     private ExpansionItemResponse expansion;
     private List<CardItemResponse> cardlist = new ArrayList<>();
-    private int priceDivider;
+    private double priceDivider;
     private String priceUnit;
 
     public ExpansionItemResponse getExpansion() {
@@ -26,11 +26,11 @@ public class ExpansionEntryResponse {
         cardlist.add(card);
     }
 
-    public void setPriceDivider(int priceDivider) {
+    public void setPriceDivider(double priceDivider) {
         this.priceDivider = priceDivider;
     }
 
-    public int getPriceDivider() {
+    public double getPriceDivider() {
         return this.priceDivider;
     }
 

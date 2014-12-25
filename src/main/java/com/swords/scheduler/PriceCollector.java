@@ -6,11 +6,11 @@ import com.swords.model.repository.CardCollectionRepository;
 import com.swords.model.repository.CardRepository;
 import com.swords.util.JSONUtils;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 @EnableScheduling
 public class PriceCollector {
 
+    private static final Logger logger = LoggerFactory.getLogger(PriceCollector.class);
+
     @Autowired
     private CardRepository cardRepository;
     @Autowired
@@ -27,7 +29,7 @@ public class PriceCollector {
 
     @Scheduled(fixedDelay = 21600000)
     public void process() {
-        System.out.println("Downloading pricing data!");
+        logger.info("Downloading pricing data!");
 
         try {
             int counter = 0;
@@ -41,7 +43,7 @@ public class PriceCollector {
                 counter++;
             } while (cards.length() != 0);
         } catch (IOException | JSONException ex) {
-            Logger.getLogger(PriceCollector.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Failed to parse pricing data!", ex);
         }
     }
 
@@ -68,7 +70,7 @@ public class PriceCollector {
 
                 cardCollectionRepository.save(cardCollection);
 
-                System.out.println("Set new price: " + cardCollection.getMintPrice() + " for card: " + actCard.getName() + " [" + actCard.getExpansion() + "]");
+                logger.info("Set new price: " + cardCollection.getMintPrice() + " for card: " + actCard.getName() + " [" + actCard.getExpansion() + "]");
             }
         }
     }

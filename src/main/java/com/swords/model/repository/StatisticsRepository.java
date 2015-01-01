@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -17,9 +16,9 @@ public class StatisticsRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public List<Statistics> findByBetweenDate(Date startDate, Date endDate) {
+    public List<Statistics> findByBetweenDate(long startDate, long endDate) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("date").gte(startDate).lt(endDate));
+        query.addCriteria(Criteria.where("_id").lte(endDate).gte(startDate));
 
         return mongoTemplate.find(query, Statistics.class);
     }

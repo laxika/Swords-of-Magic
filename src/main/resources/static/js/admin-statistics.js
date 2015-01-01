@@ -1,5 +1,9 @@
 $(function () {
-    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (csv) {
+    $.getJSON('/admin/statistics/', function (data) {
+
+        var startDate = new Date();
+
+        startDate.setDate(startDate.getDate() -  data['mythic'].length + 1);
 
         $('#chart-collection-change').highcharts({
             title: {
@@ -55,32 +59,32 @@ $(function () {
             series: [{
                 name: 'All cards',
                 pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2015, 0, 1),
-                data: [3,17,3,7,6,5,9],
+                pointStart: Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
+                data: data['mythic'],
                 color: '#000000'
             }, {
                 name: 'Mythic rare',
                 pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2015, 0, 1),
-                data: [5,10,7,4,5,6,3],
+                pointStart: Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
+                data: data['mythic'],
                 color: '#FFA000'
             }, {
                 name: 'Rare',
                 pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2015, 0, 1),
-                data: [2,7,8,5,11,2,3],
+                pointStart: Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
+                data: data['rare'],
                 color: '#FFDF00'
             }, {
                 name: 'Uncommon',
                 pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2015, 0, 1),
-                data: [4,3,6,13,2,4,5],
+                pointStart: Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
+                data: data['uncommon'],
                 color: '#E0E0E0'
             }, {
                 name: 'Common',
                 pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2015, 0, 1),
-                data: [5,4,3,4,12,17,7],
+                pointStart: Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
+                data: data['common'],
                 color: '#808080'
             }]
         });

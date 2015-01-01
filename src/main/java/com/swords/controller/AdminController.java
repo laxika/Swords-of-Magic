@@ -2,12 +2,16 @@ package com.swords.controller;
 
 import com.swords.component.ExpansionLoader;
 import com.swords.controller.response.LoginResponse;
+import com.swords.controller.response.StatisticsResponse;
 import com.swords.model.*;
 import com.swords.model.repository.*;
 import com.swords.session.SessionType;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import javax.servlet.http.HttpSession;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -67,6 +71,22 @@ public class AdminController {
             session.setAttribute(SessionType.USER, login);
         } else {
             response.setError("Hibás felhasználónév vagy jelszó!");
+        }
+
+        return response;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/statistics", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public StatisticsResponse index(HttpSession session) {
+        List<Statistics> statisticsList = statisticsRepository.findByBetweenDate(new DateTime().withTimeAtStartOfDay().minusDays(7).getMillis(), new DateTime().withTimeAtStartOfDay().getMillis());
+        System.out.println("LIST: "+statisticsList.size());
+
+        StatisticsResponse response = new StatisticsResponse();
+
+        for(Statistics statistics : statisticsList) {
+            System.out.println("ADDED: "+statistics.getRare());
+            response.addDayData(statistics);
         }
 
         return response;

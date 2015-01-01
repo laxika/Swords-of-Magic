@@ -280,3 +280,15 @@ input[type="color"]:focus,
     margin-left: -110px;
     margin-top: 5px;
 }
+
+/** Highcharts **/
+
+.highcharts-outter-design {
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.highcharts-container {
+    border-radius: 5px;
+}

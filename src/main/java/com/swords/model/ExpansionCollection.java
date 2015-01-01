@@ -53,7 +53,7 @@ public class ExpansionCollection {
     public int getRarityByName(String name) {
         switch (name) {
             case RarityConstant.COMMON:
-                return this.commonAmount;
+                return this.getCommonAmount();
             case RarityConstant.UNCOMMON:
                 return this.getUncommonAmount();
             case RarityConstant.RARE:
@@ -68,7 +68,7 @@ public class ExpansionCollection {
     public void setRarityByName(String name, int value) {
         switch (name) {
             case RarityConstant.COMMON:
-                this.commonAmount = value;
+                this.setCommonAmount(value);
                 break;
             case RarityConstant.UNCOMMON:
                 this.setUncommonAmount(value);

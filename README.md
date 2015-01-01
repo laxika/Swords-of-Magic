@@ -43,3 +43,9 @@ http://www.icondrawer.com/
 
 For the image slider library thanks to:
 http://highslide.com/
+
+For the card data thanks to:
+http://mtgjson.com/
+
+For the card images thanks to:
+http://mtgimage.com/

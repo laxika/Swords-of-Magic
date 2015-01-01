@@ -2,14 +2,8 @@ package com.swords.controller;
 
 import com.swords.component.ExpansionLoader;
 import com.swords.controller.response.LoginResponse;
-import com.swords.model.Card;
-import com.swords.model.CardCollection;
-import com.swords.model.ExpansionCollection;
-import com.swords.model.User;
-import com.swords.model.repository.CardRepository;
-import com.swords.model.repository.CardCollectionRepository;
-import com.swords.model.repository.ExpansionCollectionRepository;
-import com.swords.model.repository.UserRepository;
+import com.swords.model.*;
+import com.swords.model.repository.*;
 import com.swords.session.SessionType;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -40,6 +34,8 @@ public class AdminController {
     private ExpansionCollectionRepository expansionCollectionRepository;
     @Autowired
     private CardRepository cardRepository;
+    @Autowired
+    private StatisticsRepository statisticsRepository;
 
     @RequestMapping(value = "/admin/index", method = RequestMethod.GET)
     public String home() {
@@ -95,6 +91,11 @@ public class AdminController {
         
         cardCollectionRepository.save(collection);
         expansionCollectionRepository.save(expansionCollection);
+
+        Statistics statistics = this.statisticsRepository.findToday();
+        statistics.setRarityStatisticsByName(card.getRarity(), statistics.getRarityByName(card.getRarity()) + difference);
+
+        statisticsRepository.save(statistics);
 
         return new ResponseEntity(HttpStatus.OK);
     }

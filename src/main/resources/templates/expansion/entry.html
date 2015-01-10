@@ -146,7 +146,8 @@
                                         <td ng-if="!card.data.number">{{::card.data.name}}</td>
 
                                         <td class="bold" th:text="#{expansion.entry.manacost}">Manacost:</td>
-                                        <td ng-bind-html="replaceSymbols(card.data.manacost +   ' - ({' +   card.data.cmc +   '})')"></td>
+                                        <td ng-if="card.data.manacost" ng-bind-html="replaceSymbols(card.data.manacost +   ' - ({' +   card.data.cmc +   '})')"></td>
+                                        <td ng-if="!card.data.manacost">None</td>
                                     </tr>
                                     <tr>
                                         <td class="bold" ng-if="card.data.color" th:text="#{expansion.entry.color}">Color</td>
@@ -171,7 +172,7 @@
                                     </tr>
                                     <tr ng-if="card.data.layout">
                                         <td class="bold" th:text="#{expansion.entry.layout}">Layout</td>
-                                        <td>{{::card.data.layout}}</td>
+                                        <td>{{::uppercaseFirst(card.data.layout)}}</td>
                                         <td></td>
                                         <td></td>
                                     </tr>

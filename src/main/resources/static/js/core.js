@@ -175,6 +175,10 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 name: ''
             };
 
+            $scope.uppercaseFirst = function(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
+
             $scope.openCard = function (cardId) {
                 $('#card-accordion').find('.collapse.in').collapse('hide');
                 $('#card-accordion').find('#' + cardId).collapse('show');
@@ -199,7 +203,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 }
 
                     //fixing {B/G} because only BG is accepted by mtgimages
-                var newText = text.replace(/\{([^T].*?)\/([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1$2/16.gif" alt="$1$2 mana"/>');
+                var newText = text.replace(/\{([^T])\/([^T])\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1$2/16.gif" alt="$1$2 mana"/>');
                     //{B} ->
                     newText = newText.replace(/\{([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="$1 mana"/>');
                     //Fixing symbols like {T}

@@ -198,10 +198,12 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                     return '';
                 }
 
-                var newText = '';
-
-                newText = text.replace(/\{([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="$1 mana"/>');
-                newText = newText.replace(/\{(\w+)\}/ig, '<img src="http://mtgimage.com/symbol/other/$1/16.gif" alt="$1 symbol"/>');
+                    //fixing {B/G} because only BG is accepted by mtgimages
+                var newText = text.replace(/\{([^T].*?)\/([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1$2/16.gif" alt="$1$2 mana"/>');
+                    //{B} ->
+                    newText = newText.replace(/\{([^T].*?)\}/ig, '<img src="http://mtgimage.com/symbol/mana/$1/16.gif" alt="$1 mana"/>');
+                    //Fixing symbols like {T}
+                    newText = newText.replace(/\{(\w+)\}/ig, '<img src="http://mtgimage.com/symbol/other/$1/16.gif" alt="$1 symbol"/>');
 
                 return $sce.trustAsHtml(newText);
             };

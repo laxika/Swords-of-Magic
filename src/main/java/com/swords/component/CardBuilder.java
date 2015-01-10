@@ -34,6 +34,7 @@ public class CardBuilder {
 
         if (cardData.has("manaCost")) {
             card.setManacost(cardData.getString("manaCost"));
+            card.setCmc(cardData.getDouble("cmc"));
         }
 
         if (cardData.has("rarity")) {

@@ -10,7 +10,7 @@ public class Card {
     private final String id;
     private String name;
     private String manacost;
-    private int cmc;
+    private double cmc;
     private String[] color;
     private String[] supertypes;
     private String[] types;
@@ -52,11 +52,11 @@ public class Card {
         this.manacost = manacost;
     }
 
-    public int getCmc() {
+    public double getCmc() {
         return cmc;
     }
 
-    public void setCmc(int cmc) {
+    public void setCmc(double cmc) {
         this.cmc = cmc;
     }
 

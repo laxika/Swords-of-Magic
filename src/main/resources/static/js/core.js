@@ -136,8 +136,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 $scope.formDisabled = true;
 
                 $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-                $http.post('/admin/login', $.param($scope.data)).
-                        success(function (data, status, headers, config) {
+                $http.post('/admin/login', $.param($scope.data)).success(function (data, status, headers, config) {
                             if (data.success) {
                                 $state.go('admin/home');
                                 $scope.$parent.setShowError(false);
@@ -150,8 +149,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                                 $scope.$parent.setShowError(true);
                                 $scope.formDisabled = false;
                             }
-                        }).
-                        error(function (data, status, headers, config) {
+                        }).error(function (data, status, headers, config) {
                             $scope.$parent.setErrorText("Error while logging in!");
                             $scope.$parent.setShowError(true);
                         });
@@ -225,7 +223,7 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
     });
 });
 
-swordsApp.controller('MainController', function ($scope) {
+swordsApp.controller('MainController', function ($scope, $http) {
     $scope.error = {
         show: false,
         text: ''
@@ -266,4 +264,13 @@ swordsApp.controller('MainController', function ($scope) {
             sref: sref
         });
     };
+
+    $http.get('/user/data').success(function (data, status, headers, config) {
+        if(data.loggedIn) {
+            $scope.setLoggedIn(true);
+            $scope.removeButton('Login');
+            $scope.addButton('Admin', 'admin/home');
+            $scope.addButton('Load carddata', 'admin/carddata');
+        }
+    });
 });

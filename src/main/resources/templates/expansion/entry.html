@@ -19,12 +19,20 @@
 </div>
 <div class="panel-group panel panel-default panel-shadow" id="card-accordion">
     <div class="panel-body">
-        <div style="text-align: center;" data-loading="">
+        <div class="text-center" data-loading="">
             <span style="font-size: 5em" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
         </div>
+        <table class="max-width" ng-show="cards.length > 0">
+            <thead>
+                <tr>
+                    <th style="padding: 10px 15px;">Name</th>
+                    <th style="padding: 10px;" class="text-right">Count</th>
+                </tr>
+            </thead>
+        </table>
         <div class="panel panel-default panel-inner" ng-repeat="card in cards| filter:{data: { name: search.name}}">
             <div class="panel-heading no-border">
-                <h4 class="cursor-link panel-title" ng-click="openCard(card.data.multiverseId)">{{card.data.name}}<span class="pull-right">Count: {{card.collection.mintAmount + card.collection.nearMintAmount + card.collection.slightlyPlayedAmount + card.collection.moderatelyPlayedAmount + card.collection.heavilyPlayedAmount + card.collection.onlineAmount + card.collection.foilAmount}}</span></h4>
+                <h4 class="cursor-link panel-title" ng-click="openCard(card.data.multiverseId)">{{card.data.name}}<span class="pull-right">[{{card.collection.mintAmount + card.collection.nearMintAmount + card.collection.slightlyPlayedAmount + card.collection.moderatelyPlayedAmount + card.collection.heavilyPlayedAmount + card.collection.onlineAmount + card.collection.foilAmount}}]</span></h4>
             </div>
             <div id="{{::card.data.multiverseId}}" class="panel-collapse collapse">
                 <div class="panel-body">

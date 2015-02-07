@@ -91,6 +91,10 @@ nav.navbar {
 
 /** General **/
 
+.max-width {
+    width: 100%;
+}
+
 #menu .btn {
     margin-left: 10px;
 }

@@ -59,7 +59,7 @@ list-style-image: none;padding-top: 5px;padding-bottom: 5px;">
                     <tbody ng-repeat="expansion in expansions| filter:{data: { name: search.name}} | filter:isModern() | filter:isStandard() | filter:isWithCards()" style="border: 1px solid #decda0;">
                         <tr style="height: 52px;background: rgba(1,1,1,0.05);">
                             <td class="text-middle">
-                                <img ng-if="inArray('r',expansion.data.seticons)" class="img-thumbnail expansion-set-icon" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg" alt="{{expansion.data.name}} Icon" /> {{expansion.data.name}}
+                                <img ng-if="inArray('r',expansion.data.seticons)" class="img-thumbnail expansion-set-icon" ng-src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg" alt="{{expansion.data.name}} Icon" /> {{expansion.data.name}}
                             </td>
                             <td ng-if="expansion.collection" class="text-middle text-center">
                                 {{expansion.collection.mythicAmount + expansion.collection.rareAmount + expansion.collection.uncommonAmount + expansion.collection.commonAmount}}
@@ -102,7 +102,7 @@ list-style-image: none;padding-top: 5px;padding-bottom: 5px;">
                                                 <h3 class="panel-title bold" th:text="#{expansion.index.general_information}">General information</h3>
                                             </div>
                                             <div class="panel-body">
-                                                <img style="float:left;margin-right: 18px;" ng-if="inArray('r',expansion.data.seticons)" class="img-responsive img-thumbnail expansion-set-tumbnail" src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg"  alt="{{expansion.data.name}} Icon"/>
+                                                <img style="float:left;margin-right: 18px;" ng-if="inArray('r',expansion.data.seticons)" class="img-responsive img-thumbnail expansion-set-tumbnail" ng-src="http://mtgimage.com/symbol/set/{{expansion.data.id}}/r.svg"  alt="{{expansion.data.name}} Icon"/>
                                                 <p>Release info will come here</p>
                                             </div>
                                             <table class="table" >

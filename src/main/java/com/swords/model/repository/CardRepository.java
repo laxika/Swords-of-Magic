@@ -28,6 +28,14 @@ public class CardRepository {
 
         return mongoTemplate.findOne(query, Card.class);
     }
+
+    public Card findByNameAndExpansionId(String name, String expansionId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("expansion").is(expansionId));
+        query.addCriteria(Criteria.where("name").is(name));
+
+        return mongoTemplate.findOne(query, Card.class);
+    }
     
     public List<Card> findAll() {
         return mongoTemplate.findAll(Card.class);

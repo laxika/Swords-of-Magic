@@ -1,20 +1,26 @@
 package com.swords.scheduler;
 
+import com.sun.deploy.net.URLEncoder;
 import com.swords.model.Card;
 import com.swords.model.CardCollection;
+import com.swords.model.Expansion;
 import com.swords.model.repository.CardCollectionRepository;
 import com.swords.model.repository.CardRepository;
+import com.swords.model.repository.ExpansionRepository;
 import com.swords.util.JSONUtils;
-import java.io.IOException;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.List;
 
 @Component
 @EnableScheduling
@@ -26,57 +32,52 @@ public class PriceCollector {
     private CardRepository cardRepository;
     @Autowired
     private CardCollectionRepository cardCollectionRepository;
+    @Autowired
+    private ExpansionRepository expansionRepository;
 
     @Scheduled(fixedDelay = 21600000)
     public void process() {
         logger.info("Downloading pricing data!");
 
-        try {
-            int counter = 0;
-            JSONArray cards;
+        List<Expansion> expansionList = expansionRepository.findAll();
 
-            do {
-                cards = JSONUtils.readJsonArrayFromUrl("https://api.deckbrew.com/mtg/cards?page=" + counter);
+        for (Expansion expansion : expansionList) {
+            try {
+                JSONArray cards = JSONUtils.readJsonArrayFromUrl("http://notional-buffer-750.appspot.com/api/tcgplayer/setPrices.json?cardset=" + URLEncoder.encode(this.mapExpansionName(expansion.getName()), "UTF-8"));
 
-                this.processCards(cards);
+                logger.info("Parsing price data for set: "+expansion.getName());
 
-                counter++;
-            } while (cards.length() != 0);
-        } catch (IOException | JSONException ex) {
-            logger.error("Failed to parse pricing data!", ex);
-        }
-    }
-
-    private void processCards(JSONArray cards) {
-        for (int i = 0; i < cards.length(); i++) {
-            JSONObject card = cards.getJSONObject(i);
-
-            this.processEditions(card.getJSONArray("editions"));
-        }
-    }
-
-    private void processEditions(JSONArray editions) {
-        for (int j = 0; j < editions.length(); j++) {
-            JSONObject edition = editions.getJSONObject(j);
-
-            if (edition.has("price")) {
-                Card actCard = cardRepository.findByMultiverseId(edition.getInt("multiverse_id"));
-
-                if(actCard == null) {
-                    continue;
-                }
-
-                CardCollection cardCollection = this.parseCardPricing(edition, actCard);
-
-                cardCollectionRepository.save(cardCollection);
-
-                logger.info("Set new price: " + cardCollection.getMintPrice() + " for card: " + actCard.getName() + " [" + actCard.getExpansion() + "]");
+                this.processCards(cards, expansion.getId());
+            } catch (IOException | JSONException ex) {
+                logger.error("Failed to parse pricing data for set: " + expansion.getName(), ex);
             }
         }
     }
 
-    private CardCollection parseCardPricing(JSONObject edition, Card actCard) {
-        int price = edition.getJSONObject("price").getInt("median");
+    private void processCards(JSONArray cards, String expansionId) {
+        for (int i = 0; i < cards.length(); i++) {
+            JSONObject cardData = cards.getJSONObject(i);
+
+            if (!cardData.getString("med").equals("")) {
+                Card card = cardRepository.findByNameAndExpansionId(cardData.getString("name"), expansionId);
+
+                if(card == null) {
+                    logger.info("No card found with name: " + cardData.getString("name"));
+
+                    continue;
+                }
+
+                CardCollection cardCollection = this.parseCardPricing(cardData.getString("med"), card);
+
+                cardCollectionRepository.save(cardCollection);
+
+                logger.info("Updated price on " + card.getName() + " [" + card.getExpansion() + "] to " + cardCollection.getMintPrice());
+            }
+        }
+    }
+
+    private CardCollection parseCardPricing(String rawPriceData, Card actCard) {
+        int price = this.convertPriceData(rawPriceData);
 
         CardCollection cardCollection = cardCollectionRepository.findByIdOrCreateIfNotExists(actCard.getId());
         cardCollection.setFoilPrice(price * 2);
@@ -87,5 +88,18 @@ public class PriceCollector {
         cardCollection.setHeavilyPlayedPrice(price);
 
         return cardCollection;
+    }
+
+    private int convertPriceData(String rawPriceData) {
+        return (int) (Double.parseDouble(rawPriceData.replace("$", "").replace(",", "")) * 100);
+    }
+
+    private String mapExpansionName(String expansionName) {
+        switch (expansionName) {
+            case "Magic: The Gathering—Conspiracy":
+                return "Conspiracy";
+        }
+
+        return expansionName;
     }
 }

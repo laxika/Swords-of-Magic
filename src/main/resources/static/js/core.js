@@ -184,17 +184,17 @@ swordsApp.config(function ($urlRouterProvider, $stateProvider) {
                 $('#card-accordion').find('#' + cardId).collapse('show');
             };
 
-            $scope.sendUpdate = function (index, type) {
+            $scope.sendUpdate = function (card, type) {
                 var data = {};
 
-                data.card = $scope.cards[index].data.id;
+                data.card = card.data.id;
                 data.field = type;
-                data.value = $scope.cards[index].collection[type];
+                data.value = card.collection[type];
 
-                $http.post('/admin/collection/update', $.param(data)).
-                        error(function (data, status, headers, config) {
+                $http.post('/admin/collection/update', $.param(data))
+                    .error(function (data, status, headers, config) {
                             console.log("ERROR!");
-                        });
+                    });
             };
 
             $scope.replaceSymbols = function (text) {

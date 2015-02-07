@@ -24,7 +24,7 @@
         </div>
         <div class="panel panel-default panel-inner" ng-repeat="card in cards| filter:{data: { name: search.name}}">
             <div class="panel-heading no-border">
-                <h4 class="cursor-link panel-title" ng-click="openCard(card.data.multiverseId)">{{card.data.name}}</h4>
+                <h4 class="cursor-link panel-title" ng-click="openCard(card.data.multiverseId)">{{card.data.name}}<span class="pull-right">Count: {{card.collection.mintAmount + card.collection.nearMintAmount + card.collection.slightlyPlayedAmount + card.collection.moderatelyPlayedAmount + card.collection.heavilyPlayedAmount + card.collection.onlineAmount + card.collection.foilAmount}}</span></h4>
             </div>
             <div id="{{::card.data.multiverseId}}" class="panel-collapse collapse">
                 <div class="panel-body">
@@ -94,37 +94,37 @@
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.mint}">Mint:</td>
-                                        <td><input type="number" ng-model="card.collection.mintAmount" ng-change="sendUpdate($index, 'mintAmount')" integer="" min="0"/></td>
+                                        <td><input type="number" ng-model="card.collection.mintAmount" ng-change="sendUpdate(card, 'mintAmount')" integer="" min="0"/></td>
                                         <td>{{::card.collection.mintPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.near_mint}">Near Mint:</td>
-                                        <td><input type="number" ng-model="card.collection.nearMintAmount" ng-change="sendUpdate($index, 'nearMintAmount')" integer="" min="0"/></td>
+                                        <td><input type="number" ng-model="card.collection.nearMintAmount" ng-change="sendUpdate(card, 'nearMintAmount')" integer="" min="0"/></td>
                                         <td>{{::card.collection.nearMintPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.slightly_played}">Slightly played:</td>
-                                        <td><input type="number" ng-model="card.collection.slightlyPlayedAmount" ng-change="sendUpdate($index, 'slightlyPlayedAmount')" integer="" min="0"/></td>
+                                        <td><input type="number" ng-model="card.collection.slightlyPlayedAmount" ng-change="sendUpdate(card, 'slightlyPlayedAmount')" integer="" min="0"/></td>
                                         <td>{{::card.collection.slightlyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.moderately_played}">Moderately played:</td>
-                                        <td><input type="number" ng-model="card.collection.moderatelyPlayedAmount" ng-change="sendUpdate($index, 'moderatelyPlayedAmount')" integer="" min="0"/></td>
+                                        <td><input type="number" ng-model="card.collection.moderatelyPlayedAmount" ng-change="sendUpdate(card, 'moderatelyPlayedAmount')" integer="" min="0"/></td>
                                         <td>{{::card.collection.moderatelyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.heavily_played}">Heavily played:</td>
-                                        <td><input type="number" ng-model="card.collection.heavilyPlayedAmount" ng-change="sendUpdate($index, 'heavilyPlayedAmount')" integer="" min="0"/></td>
+                                        <td><input type="number" ng-model="card.collection.heavilyPlayedAmount" ng-change="sendUpdate(card, 'heavilyPlayedAmount')" integer="" min="0"/></td>
                                         <td>{{::card.collection.heavilyPlayedPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.online}">Online (MTGO/MODO):</td>
-                                        <td><input type="number" ng-model="card.collection.onlineAmount" ng-change="sendUpdate($index, 'onlineAmount')" integer="" min="0"/></td>
+                                        <td><input type="number" ng-model="card.collection.onlineAmount" ng-change="sendUpdate(card, 'onlineAmount')" integer="" min="0"/></td>
                                         <td>{{::card.collection.onlinePrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                     <tr>
                                         <td th:text="#{expansion.entry.foil}">Foil:</td>
-                                        <td><input type="number" ng-model="card.collection.foilAmount" ng-change="sendUpdate($index, 'foilAmount')" integer="" min="0"/></td>
+                                        <td><input type="number" ng-model="card.collection.foilAmount" ng-change="sendUpdate(card, 'foilAmount')" integer="" min="0"/></td>
                                         <td>{{::card.collection.foilPrice / priceDivider}} {{priceUnit}}</td>
                                     </tr>
                                 </table>

@@ -58,6 +58,7 @@ public class Statistics {
     public void setRarityStatisticsByName(String name, int value) {
         switch (name) {
             case RarityConstant.COMMON:
+            case RarityConstant.BASIC_LAND:
                 this.setCommon(value);
                 break;
             case RarityConstant.UNCOMMON:
@@ -77,6 +78,7 @@ public class Statistics {
     public int getRarityByName(String name) {
         switch (name) {
             case RarityConstant.COMMON:
+            case RarityConstant.BASIC_LAND:
                 return this.getCommon();
             case RarityConstant.UNCOMMON:
                 return this.getUncommon();
